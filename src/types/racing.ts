@@ -1,3 +1,12 @@
+export type Season = {
+  id: string;
+  year: number;
+  name: string;
+  is_current: boolean;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Driver = {
   id: string;
   first_name: string;
