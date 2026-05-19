@@ -1,0 +1,44 @@
+export type DriverStanding = {
+  id: string;
+  season: string;
+  season_year: number;
+  driver: string;
+  driver_name: string;
+  driver_abbreviation: string;
+  driver_number: number | null;
+  driver_country: string;
+  team: string | null;
+  team_name: string | null;
+  position: number;
+  points: string;
+  wins: number;
+  podiums: number;
+  poles: number;
+  fastest_laps: number;
+  races_entered: number;
+  races_finished: number;
+  dnfs: number;
+  created_at: string;
+  updated_at: string;
+};
+
+export type ConstructorStanding = {
+  id: string;
+  season: string;
+  season_year: number;
+  team: string;
+  team_name: string;
+  team_country: string;
+  team_logo: string | null;
+  position: number;
+  points: string;
+  wins: number;
+  podiums: number;
+  poles: number;
+  fastest_laps: number;
+  races_entered: number;
+  double_podiums: number;
+  double_points_finishes: number;
+  created_at: string;
+  updated_at: string;
+};
