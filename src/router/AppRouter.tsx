@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { MainLayout } from "../components/layout/MainLayout";
+import { ArticleDetailPage } from "../pages/ArticleDetailPage";
 import { ArticlesPage } from "../pages/ArticlesPage";
 import { DriversPage } from "../pages/DriversPage";
 import { HomePage } from "../pages/HomePage";
@@ -20,6 +21,7 @@ export function AppRouter() {
           <Route path="/races" element={<RacesPage />} />
           <Route path="/standings" element={<StandingsPage />} />
           <Route path="/articles" element={<ArticlesPage />} />
+          <Route path="/articles/:slug" element={<ArticleDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
