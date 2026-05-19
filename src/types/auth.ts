@@ -36,3 +36,45 @@ export type SuccessResponse<T> = {
   message: string;
   data: T;
 };
+
+export type FavoriteDriver = {
+  id: string;
+  driver: string;
+  driver_name: string;
+  driver_abbreviation: string;
+  driver_country: string;
+  current_team_name: string | null;
+  created_at: string;
+};
+
+export type FavoriteTeam = {
+  id: string;
+  team: string;
+  team_name: string;
+  team_country: string;
+  team_logo: string | null;
+  created_at: string;
+};
+
+export type FavoriteRace = {
+  id: string;
+  race: string;
+  race_name: string;
+  season_year: number;
+  round_number: number;
+  circuit_name: string;
+  race_date: string;
+  created_at: string;
+};
+
+export type UserDashboard = {
+  user: User;
+  favorites_summary: {
+    drivers_count: number;
+    teams_count: number;
+    races_count: number;
+  };
+  recent_favorite_drivers: FavoriteDriver[];
+  recent_favorite_teams: FavoriteTeam[];
+  recent_favorite_races: FavoriteRace[];
+};
