@@ -1,4 +1,5 @@
 import { Link, NavLink } from "react-router-dom";
+import { useAuth } from "../../context/AuthContext";
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -10,6 +11,8 @@ const navLinks = [
 ];
 
 export function Navbar() {
+  const { isAuthenticated, user, logout } = useAuth();
+
   return (
     <header className="border-b border-slate-200 bg-white">
       <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
@@ -32,16 +35,39 @@ export function Navbar() {
             </NavLink>
           ))}
 
-          <NavLink
-            to="/login"
-            className={({ isActive }) =>
-              isActive
-                ? "rounded-lg bg-red-600 px-3 py-2 text-white"
-                : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
-            }
-          >
-            Login
-          </NavLink>
+          {isAuthenticated ? (
+            <>
+              <NavLink
+                to="/dashboard"
+                className={({ isActive }) =>
+                  isActive
+                    ? "text-red-600"
+                    : "text-slate-700 hover:text-red-600"
+                }
+              >
+                {user?.username}
+              </NavLink>
+
+              <button
+                type="button"
+                onClick={logout}
+                className="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
+              >
+                Logout
+              </button>
+            </>
+          ) : (
+            <NavLink
+              to="/login"
+              className={({ isActive }) =>
+                isActive
+                  ? "rounded-lg bg-red-600 px-3 py-2 text-white"
+                  : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
+              }
+            >
+              Login
+            </NavLink>
+          )}
         </div>
       </nav>
     </header>

@@ -9,6 +9,7 @@ import { NotFoundPage } from "../pages/NotFoundPage";
 import { RacesPage } from "../pages/RacesPage";
 import { StandingsPage } from "../pages/StandingsPage";
 import { TeamsPage } from "../pages/TeamsPage";
+import { DashboardPage } from "../pages/DashboardPage";
 
 export function AppRouter() {
   return (
@@ -23,6 +24,7 @@ export function AppRouter() {
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/articles/:slug" element={<ArticleDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
