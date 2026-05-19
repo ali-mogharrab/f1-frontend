@@ -35,3 +35,24 @@ export type Team = {
   created_at: string;
   updated_at: string;
 };
+
+export type Race = {
+  id: string;
+  season: string;
+  season_year: number;
+  circuit: string;
+  circuit_name: string;
+  circuit_country: string;
+  name: string;
+  official_name: string;
+  round_number: number;
+  race_date: string;
+  race_time: string | null;
+  qualifying_date: string | null;
+  qualifying_time: string | null;
+  sprint_date: string | null;
+  sprint_time: string | null;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
