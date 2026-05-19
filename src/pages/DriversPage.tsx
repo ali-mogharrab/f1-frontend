@@ -1,31 +1,30 @@
 import { useQuery } from "@tanstack/react-query";
 import { getDrivers } from "../api/racingApi";
+import { EmptyState } from "../components/common/EmptyState";
+import { ErrorMessage } from "../components/common/ErrorMessage";
+import { LoadingMessage } from "../components/common/LoadingMessage";
+import { PageHeader } from "../components/common/PageHeader";
 
 export function DriversPage() {
-  const {
-    data,
-    isLoading,
-    isError,
-    error,
-  } = useQuery({
+  const { data, isLoading, isError, error } = useQuery({
     queryKey: ["drivers"],
     queryFn: getDrivers,
   });
 
   if (isLoading) {
-    return <p className="text-slate-600">Loading drivers...</p>;
+    return <LoadingMessage message="Loading drivers..." />;
   }
 
   if (isError) {
     return (
-      <div className="rounded-2xl bg-red-50 p-6 text-red-700">
-        <h1 className="mb-2 text-xl font-bold">Could not load drivers</h1>
-        <p>
-          {error instanceof Error
+      <ErrorMessage
+        title="Could not load drivers"
+        message={
+          error instanceof Error
             ? error.message
-            : "Something went wrong while loading drivers."}
-        </p>
-      </div>
+            : "Something went wrong while loading drivers."
+        }
+      />
     );
   }
 
@@ -33,22 +32,14 @@ export function DriversPage() {
 
   return (
     <section>
-      <div className="mb-6">
-        <p className="text-sm font-semibold uppercase tracking-wide text-red-600">
-          Racing
-        </p>
-        <h1 className="text-3xl font-bold text-slate-950">Drivers</h1>
-        <p className="mt-2 text-slate-600">
-          Browse Formula 1 drivers from your Django REST API.
-        </p>
-      </div>
+      <PageHeader
+        eyebrow="Racing"
+        title="Drivers"
+        description="Browse Formula 1 drivers from your Django REST API."
+      />
 
       {drivers.length === 0 ? (
-        <div className="rounded-2xl bg-white p-6 shadow-sm">
-          <p className="text-slate-600">
-            No drivers found. Try running the backend seed command.
-          </p>
-        </div>
+        <EmptyState message="No drivers found. Try running the backend seed command." />
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {drivers.map((driver) => (
