@@ -1,5 +1,6 @@
 import { apiClient } from "./client";
 import type {
+  FavoriteDriver,
   LoginPayload,
   SuccessResponse,
   TokenPair,
@@ -20,6 +21,26 @@ export async function getCurrentUser() {
 export async function getUserDashboard() {
   const response =
     await apiClient.get<SuccessResponse<UserDashboard>>("/users/dashboard/");
+
+  return response.data;
+}
+
+export async function getFavoriteDrivers() {
+  const response =
+    await apiClient.get<SuccessResponse<FavoriteDriver[]>>(
+      "/users/favorites/drivers/",
+    );
+
+  return response.data;
+}
+
+export async function addFavoriteDriver(driverId: string) {
+  const response = await apiClient.post<SuccessResponse<FavoriteDriver>>(
+    "/users/favorites/drivers/",
+    {
+      driver: driverId,
+    },
+  );
 
   return response.data;
 }

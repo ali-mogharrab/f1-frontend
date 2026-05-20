@@ -1,14 +1,33 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { addFavoriteDriver, getFavoriteDrivers } from "../api/authApi";
 import { getDrivers } from "../api/racingApi";
 import { EmptyState } from "../components/common/EmptyState";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";
 import { PageHeader } from "../components/common/PageHeader";
+import { useAuth } from "../context/AuthContext";
 
 export function DriversPage() {
+  const queryClient = useQueryClient();
+  const { isAuthenticated } = useAuth();
+
   const { data, isLoading, isError, error } = useQuery({
     queryKey: ["drivers"],
     queryFn: getDrivers,
+  });
+
+  const favoriteDriversQuery = useQuery({
+    queryKey: ["favorite-drivers"],
+    queryFn: getFavoriteDrivers,
+    enabled: isAuthenticated,
+  });
+
+  const addFavoriteDriverMutation = useMutation({
+    mutationFn: addFavoriteDriver,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["favorite-drivers"] });
+      queryClient.invalidateQueries({ queryKey: ["user-dashboard"] });
+    },
   });
 
   if (isLoading) {
@@ -29,6 +48,11 @@ export function DriversPage() {
   }
 
   const drivers = data?.results ?? [];
+  const favoriteDrivers = favoriteDriversQuery.data?.data ?? [];
+
+  const favoriteDriverIds = new Set(
+    favoriteDrivers.map((favorite) => favorite.driver),
+  );
 
   return (
     <section>
@@ -42,42 +66,80 @@ export function DriversPage() {
         <EmptyState message="No drivers found. Try running the backend seed command." />
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
-          {drivers.map((driver) => (
-            <article
-              key={driver.id}
-              className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
-            >
-              <div className="mb-4 flex items-start justify-between gap-4">
-                <div>
-                  <h2 className="text-xl font-bold text-slate-950">
-                    {driver.full_name}
-                  </h2>
-                  <p className="text-sm text-slate-500">
-                    {driver.country || "Unknown country"}
+          {drivers.map((driver) => {
+            const isFavorite = favoriteDriverIds.has(driver.id);
+            const isAdding =
+              addFavoriteDriverMutation.isPending &&
+              addFavoriteDriverMutation.variables === driver.id;
+
+            return (
+              <article
+                key={driver.id}
+                className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+              >
+                <div className="mb-4 flex items-start justify-between gap-4">
+                  <div>
+                    <h2 className="text-xl font-bold text-slate-950">
+                      {driver.full_name}
+                    </h2>
+                    <p className="text-sm text-slate-500">
+                      {driver.country || "Unknown country"}
+                    </p>
+                  </div>
+
+                  <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-slate-700">
+                    {driver.abbreviation}
+                  </span>
+                </div>
+
+                <div className="space-y-2 text-sm text-slate-600">
+                  <p>
+                    <span className="font-semibold text-slate-900">
+                      Number:
+                    </span>{" "}
+                    {driver.number ?? "N/A"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-slate-900">Team:</span>{" "}
+                    {driver.current_team_name ?? "No team"}
+                  </p>
+                  <p>
+                    <span className="font-semibold text-slate-900">
+                      Status:
+                    </span>{" "}
+                    {driver.status}
                   </p>
                 </div>
 
-                <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-slate-700">
-                  {driver.abbreviation}
-                </span>
-              </div>
-
-              <div className="space-y-2 text-sm text-slate-600">
-                <p>
-                  <span className="font-semibold text-slate-900">Number:</span>{" "}
-                  {driver.number ?? "N/A"}
-                </p>
-                <p>
-                  <span className="font-semibold text-slate-900">Team:</span>{" "}
-                  {driver.current_team_name ?? "No team"}
-                </p>
-                <p>
-                  <span className="font-semibold text-slate-900">Status:</span>{" "}
-                  {driver.status}
-                </p>
-              </div>
-            </article>
-          ))}
+                <div className="mt-5 border-t border-slate-100 pt-4">
+                  {!isAuthenticated ? (
+                    <p className="text-sm text-slate-500">
+                      Login to add this driver to favorites.
+                    </p>
+                  ) : isFavorite ? (
+                    <button
+                      type="button"
+                      disabled
+                      className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-500"
+                    >
+                      Added to favorites
+                    </button>
+                  ) : (
+                    <button
+                      type="button"
+                      disabled={isAdding}
+                      onClick={() =>
+                        addFavoriteDriverMutation.mutate(driver.id)
+                      }
+                      className="w-full rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
+                    >
+                      {isAdding ? "Adding..." : "Add to favorites"}
+                    </button>
+                  )}
+                </div>
+              </article>
+            );
+          })}
         </div>
       )}
     </section>
