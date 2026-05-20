@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { useAuth } from "../context/AuthContext";
+import { getApiErrorMessage } from "../utils/apiError";
 
 export function LoginPage() {
   const navigate = useNavigate();
@@ -29,8 +30,8 @@ export function LoginPage() {
       await refreshUser();
 
       navigate("/dashboard");
-    } catch {
-      setErrorMessage("Invalid username or password.");
+    } catch (error) {
+      setErrorMessage(getApiErrorMessage(error));
     } finally {
       setIsSubmitting(false);
     }

@@ -2,6 +2,7 @@ import { useState, type FormEvent } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { register } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
+import { getApiErrorMessage } from "../utils/apiError";
 
 export function RegisterPage() {
   const navigate = useNavigate();
@@ -39,10 +40,8 @@ export function RegisterPage() {
       });
 
       navigate("/login");
-    } catch {
-      setErrorMessage(
-        "Could not create account. Please check your details and try again.",
-      );
+    } catch (error) {
+      setErrorMessage(getApiErrorMessage(error));
     } finally {
       setIsSubmitting(false);
     }
