@@ -4,6 +4,7 @@ import type {
   FavoriteRace,
   FavoriteTeam,
   LoginPayload,
+  RegisterPayload,
   SuccessResponse,
   TokenPair,
   User,
@@ -12,6 +13,15 @@ import type {
 
 export async function login(payload: LoginPayload) {
   const response = await apiClient.post<TokenPair>("/users/token/", payload);
+  return response.data;
+}
+
+export async function register(payload: RegisterPayload) {
+  const response = await apiClient.post<SuccessResponse<User>>(
+    "/users/register/",
+    payload,
+  );
+
   return response.data;
 }
 

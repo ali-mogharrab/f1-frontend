@@ -5,6 +5,7 @@ import { ArticlesPage } from "../pages/ArticlesPage";
 import { DriversPage } from "../pages/DriversPage";
 import { HomePage } from "../pages/HomePage";
 import { LoginPage } from "../pages/LoginPage";
+import { RegisterPage } from "../pages/RegisterPage";
 import { NotFoundPage } from "../pages/NotFoundPage";
 import { RacesPage } from "../pages/RacesPage";
 import { StandingsPage } from "../pages/StandingsPage";
@@ -24,6 +25,7 @@ export function AppRouter() {
           <Route path="/articles" element={<ArticlesPage />} />
           <Route path="/articles/:slug" element={<ArticleDetailPage />} />
           <Route path="/login" element={<LoginPage />} />
+          <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>

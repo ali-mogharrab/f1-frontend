@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { login } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { useAuth } from "../context/AuthContext";
@@ -100,6 +100,12 @@ export function LoginPage() {
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
+        <p className="mt-6 text-center text-sm text-slate-600">
+          Do not have an account?{" "}
+          <Link to="/register" className="font-semibold text-red-600">
+            Create one
+          </Link>
+        </p>
       </div>
     </section>
   );

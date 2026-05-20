@@ -57,16 +57,27 @@ export function Navbar() {
               </button>
             </>
           ) : (
-            <NavLink
-              to="/login"
-              className={({ isActive }) =>
-                isActive
-                  ? "rounded-lg bg-red-600 px-3 py-2 text-white"
-                  : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
-              }
-            >
-              Login
-            </NavLink>
+            <div className="flex items-center gap-2">
+              <NavLink
+                to="/register"
+                className={({ isActive }) =>
+                  isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
+                }
+              >
+                Register
+              </NavLink>
+
+              <NavLink
+                to="/login"
+                className={({ isActive }) =>
+                  isActive
+                    ? "rounded-lg bg-red-600 px-3 py-2 text-white"
+                    : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
+                }
+              >
+                Login
+              </NavLink>
+            </div>
           )}
         </div>
       </nav>
