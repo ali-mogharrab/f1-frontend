@@ -44,3 +44,11 @@ export async function addFavoriteDriver(driverId: string) {
 
   return response.data;
 }
+
+export async function removeFavoriteDriver(favoriteId: string) {
+  const response = await apiClient.delete<SuccessResponse<null>>(
+    `/users/favorites/drivers/${favoriteId}/`,
+  );
+
+  return response.data;
+}

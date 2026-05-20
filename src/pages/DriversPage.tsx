@@ -1,5 +1,9 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
-import { addFavoriteDriver, getFavoriteDrivers } from "../api/authApi";
+import {
+  addFavoriteDriver,
+  getFavoriteDrivers,
+  removeFavoriteDriver,
+} from "../api/authApi";
 import { getDrivers } from "../api/racingApi";
 import { EmptyState } from "../components/common/EmptyState";
 import { ErrorMessage } from "../components/common/ErrorMessage";
@@ -30,6 +34,14 @@ export function DriversPage() {
     },
   });
 
+  const removeFavoriteDriverMutation = useMutation({
+    mutationFn: removeFavoriteDriver,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["favorite-drivers"] });
+      queryClient.invalidateQueries({ queryKey: ["user-dashboard"] });
+    },
+  });
+
   if (isLoading) {
     return <LoadingMessage message="Loading drivers..." />;
   }
@@ -50,10 +62,6 @@ export function DriversPage() {
   const drivers = data?.results ?? [];
   const favoriteDrivers = favoriteDriversQuery.data?.data ?? [];
 
-  const favoriteDriverIds = new Set(
-    favoriteDrivers.map((favorite) => favorite.driver),
-  );
-
   return (
     <section>
       <PageHeader
@@ -67,10 +75,19 @@ export function DriversPage() {
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {drivers.map((driver) => {
-            const isFavorite = favoriteDriverIds.has(driver.id);
+            const favorite = favoriteDrivers.find(
+              (favoriteDriver) => favoriteDriver.driver === driver.id,
+            );
+
+            const isFavorite = Boolean(favorite);
+
             const isAdding =
               addFavoriteDriverMutation.isPending &&
               addFavoriteDriverMutation.variables === driver.id;
+
+            const isRemoving =
+              removeFavoriteDriverMutation.isPending &&
+              removeFavoriteDriverMutation.variables === favorite?.id;
 
             return (
               <article
@@ -116,21 +133,20 @@ export function DriversPage() {
                     <p className="text-sm text-slate-500">
                       Login to add this driver to favorites.
                     </p>
-                  ) : isFavorite ? (
+                  ) : isFavorite && favorite ? (
                     <button
                       type="button"
-                      disabled
-                      className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-500"
+                      disabled={isRemoving}
+                      onClick={() => removeFavoriteDriverMutation.mutate(favorite.id)}
+                      className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 disabled:cursor-not-allowed disabled:text-slate-400"
                     >
-                      Added to favorites
+                      {isRemoving ? "Removing..." : "Remove from favorites"}
                     </button>
                   ) : (
                     <button
                       type="button"
                       disabled={isAdding}
-                      onClick={() =>
-                        addFavoriteDriverMutation.mutate(driver.id)
-                      }
+                      onClick={() => addFavoriteDriverMutation.mutate(driver.id)}
                       className="w-full rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
                     >
                       {isAdding ? "Adding..." : "Add to favorites"}
