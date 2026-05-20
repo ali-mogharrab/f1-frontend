@@ -1,6 +1,8 @@
 import { apiClient } from "./client";
 import type {
   FavoriteDriver,
+  FavoriteRace,
+  FavoriteTeam,
   LoginPayload,
   SuccessResponse,
   TokenPair,
@@ -48,6 +50,62 @@ export async function addFavoriteDriver(driverId: string) {
 export async function removeFavoriteDriver(favoriteId: string) {
   const response = await apiClient.delete<SuccessResponse<null>>(
     `/users/favorites/drivers/${favoriteId}/`,
+  );
+
+  return response.data;
+}
+
+export async function getFavoriteTeams() {
+  const response =
+    await apiClient.get<SuccessResponse<FavoriteTeam[]>>(
+      "/users/favorites/teams/",
+    );
+
+  return response.data;
+}
+
+export async function addFavoriteTeam(teamId: string) {
+  const response = await apiClient.post<SuccessResponse<FavoriteTeam>>(
+    "/users/favorites/teams/",
+    {
+      team: teamId,
+    },
+  );
+
+  return response.data;
+}
+
+export async function removeFavoriteTeam(favoriteId: string) {
+  const response = await apiClient.delete<SuccessResponse<null>>(
+    `/users/favorites/teams/${favoriteId}/`,
+  );
+
+  return response.data;
+}
+
+export async function getFavoriteRaces() {
+  const response =
+    await apiClient.get<SuccessResponse<FavoriteRace[]>>(
+      "/users/favorites/races/",
+    );
+
+  return response.data;
+}
+
+export async function addFavoriteRace(raceId: string) {
+  const response = await apiClient.post<SuccessResponse<FavoriteRace>>(
+    "/users/favorites/races/",
+    {
+      race: raceId,
+    },
+  );
+
+  return response.data;
+}
+
+export async function removeFavoriteRace(favoriteId: string) {
+  const response = await apiClient.delete<SuccessResponse<null>>(
+    `/users/favorites/races/${favoriteId}/`,
   );
 
   return response.data;
