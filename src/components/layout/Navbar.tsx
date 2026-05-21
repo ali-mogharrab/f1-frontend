@@ -1,3 +1,4 @@
+import { useQueryClient } from "@tanstack/react-query";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -12,6 +13,12 @@ const navLinks = [
 
 export function Navbar() {
   const { isAuthenticated, user, logout } = useAuth();
+  const queryClient = useQueryClient();
+  
+  function handleLogout() {
+    logout();
+    queryClient.clear();
+  }
 
   return (
     <header className="border-b border-slate-200 bg-white">
@@ -57,7 +64,7 @@ export function Navbar() {
 
               <button
                 type="button"
-                onClick={logout}
+                onClick={handleLogout}
                 className="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
               >
                 Logout
