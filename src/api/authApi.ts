@@ -9,6 +9,7 @@ import type {
   TokenPair,
   User,
   UserDashboard,
+  UserProfile,
 } from "../types/auth";
 
 export async function login(payload: LoginPayload) {
@@ -116,6 +117,30 @@ export async function addFavoriteRace(raceId: string) {
 export async function removeFavoriteRace(favoriteId: string) {
   const response = await apiClient.delete<SuccessResponse<null>>(
     `/users/favorites/races/${favoriteId}/`,
+  );
+
+  return response.data;
+}
+
+export async function getProfile() {
+  const response = await apiClient.get<SuccessResponse<UserProfile>>(
+    "/users/profile/",
+  );
+
+  return response.data;
+}
+
+export type UpdateProfilePayload = {
+  bio?: string;
+  country?: string;
+  favorite_driver_name?: string;
+  favorite_team_name?: string;
+};
+
+export async function updateProfile(payload: UpdateProfilePayload) {
+  const response = await apiClient.patch<SuccessResponse<UserProfile>>(
+    "/users/profile/",
+    payload,
   );
 
   return response.data;

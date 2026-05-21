@@ -11,6 +11,7 @@ import { RacesPage } from "../pages/RacesPage";
 import { StandingsPage } from "../pages/StandingsPage";
 import { TeamsPage } from "../pages/TeamsPage";
 import { DashboardPage } from "../pages/DashboardPage";
+import { ProfilePage } from "../pages/ProfilePage";
 
 export function AppRouter() {
   return (
@@ -27,6 +28,7 @@ export function AppRouter() {
           <Route path="/login" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />} />
           <Route path="/dashboard" element={<DashboardPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>

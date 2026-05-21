@@ -40,9 +40,16 @@ export function Navbar() {
               <NavLink
                 to="/dashboard"
                 className={({ isActive }) =>
-                  isActive
-                    ? "text-red-600"
-                    : "text-slate-700 hover:text-red-600"
+                  isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
+                }
+              >
+                Dashboard
+              </NavLink>
+
+              <NavLink
+                to="/profile"
+                className={({ isActive }) =>
+                  isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
                 }
               >
                 {user?.username}
