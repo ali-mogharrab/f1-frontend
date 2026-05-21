@@ -1,6 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
-import { Navigate } from "react-router-dom";
 import { getProfile, updateProfile } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";
@@ -10,7 +9,7 @@ import { getApiErrorMessage } from "../utils/apiError";
 
 export function ProfilePage() {
   const queryClient = useQueryClient();
-  const { isAuthenticated, isLoadingUser, refreshUser } = useAuth();
+  const { isAuthenticated, refreshUser } = useAuth();
 
   const [bio, setBio] = useState("");
   const [country, setCountry] = useState("");
@@ -62,14 +61,6 @@ export function ProfilePage() {
       favorite_driver_name: favoriteDriverName,
       favorite_team_name: favoriteTeamName,
     });
-  }
-
-  if (isLoadingUser) {
-    return <LoadingMessage message="Checking authentication..." />;
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
   }
 
   if (profileQuery.isLoading) {

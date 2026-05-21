@@ -1,5 +1,4 @@
 import { useQuery } from "@tanstack/react-query";
-import { Navigate } from "react-router-dom";
 import { getUserDashboard } from "../api/authApi";
 import { EmptyState } from "../components/common/EmptyState";
 import { ErrorMessage } from "../components/common/ErrorMessage";
@@ -16,21 +15,13 @@ function formatDate(dateValue: string) {
 }
 
 export function DashboardPage() {
-  const { isAuthenticated, isLoadingUser } = useAuth();
+  const { isAuthenticated } = useAuth();
 
   const dashboardQuery = useQuery({
     queryKey: ["user-dashboard"],
     queryFn: getUserDashboard,
     enabled: isAuthenticated,
   });
-
-  if (isLoadingUser) {
-    return <LoadingMessage message="Checking authentication..." />;
-  }
-
-  if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
-  }
 
   if (dashboardQuery.isLoading) {
     return <LoadingMessage message="Loading dashboard..." />;
