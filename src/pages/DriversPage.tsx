@@ -10,6 +10,7 @@ import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";
 import { PageHeader } from "../components/common/PageHeader";
 import { useAuth } from "../context/AuthContext";
+import { ImageWithFallback } from "../components/common/ImageWithFallback";
 
 export function DriversPage() {
   const queryClient = useQueryClient();
@@ -92,66 +93,75 @@ export function DriversPage() {
             return (
               <article
                 key={driver.id}
-                className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg"
               >
-                <div className="mb-4 flex items-start justify-between gap-4">
-                  <div>
-                    <h2 className="text-xl font-bold text-slate-950">
-                      {driver.full_name}
-                    </h2>
-                    <p className="text-sm text-slate-500">
-                      {driver.country || "Unknown country"}
+                <ImageWithFallback
+                  src={driver.image}
+                  alt={driver.full_name}
+                  fallbackLabel={driver.abbreviation}
+                  className="h-56 w-full object-cover"
+                />
+
+                <div className="p-5">
+                  <div className="mb-4 flex items-start justify-between gap-4">
+                    <div>
+                      <h2 className="text-xl font-bold text-slate-950">
+                        {driver.full_name}
+                      </h2>
+                      <p className="text-sm text-slate-500">
+                        {driver.country || "Unknown country"}
+                      </p>
+                    </div>
+
+                    <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-slate-700">
+                      {driver.abbreviation}
+                    </span>
+                  </div>
+
+                  <div className="space-y-2 text-sm text-slate-600">
+                    <p>
+                      <span className="font-semibold text-slate-900">
+                        Number:
+                      </span>{" "}
+                      {driver.number ?? "N/A"}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-slate-900">Team:</span>{" "}
+                      {driver.current_team_name ?? "No team"}
+                    </p>
+                    <p>
+                      <span className="font-semibold text-slate-900">
+                        Status:
+                      </span>{" "}
+                      {driver.status}
                     </p>
                   </div>
 
-                  <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-slate-700">
-                    {driver.abbreviation}
-                  </span>
-                </div>
-
-                <div className="space-y-2 text-sm text-slate-600">
-                  <p>
-                    <span className="font-semibold text-slate-900">
-                      Number:
-                    </span>{" "}
-                    {driver.number ?? "N/A"}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-slate-900">Team:</span>{" "}
-                    {driver.current_team_name ?? "No team"}
-                  </p>
-                  <p>
-                    <span className="font-semibold text-slate-900">
-                      Status:
-                    </span>{" "}
-                    {driver.status}
-                  </p>
-                </div>
-
-                <div className="mt-5 border-t border-slate-100 pt-4">
-                  {!isAuthenticated ? (
-                    <p className="text-sm text-slate-500">
-                      Login to add this driver to favorites.
-                    </p>
-                  ) : isFavorite && favorite ? (
-                    <button
-                      type="button"
-                      disabled={isRemoving}
-                      onClick={() => removeFavoriteDriverMutation.mutate(favorite.id)}
-                      className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 disabled:cursor-not-allowed disabled:text-slate-400"
-                    >
-                      {isRemoving ? "Removing..." : "Remove from favorites"}
-                    </button>
-                  ) : (
-                    <button
-                      type="button"
-                      disabled={isAdding}
-                      onClick={() => addFavoriteDriverMutation.mutate(driver.id)}
-                      className="w-full rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
-                    >
-                      {isAdding ? "Adding..." : "Add to favorites"}
-                    </button>
-                  )}
+                  <div className="mt-5 border-t border-slate-100 pt-4">
+                    {!isAuthenticated ? (
+                      <p className="text-sm text-slate-500">
+                        Login to add this driver to favorites.
+                      </p>
+                    ) : isFavorite && favorite ? (
+                      <button
+                        type="button"
+                        disabled={isRemoving}
+                        onClick={() => removeFavoriteDriverMutation.mutate(favorite.id)}
+                        className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 disabled:cursor-not-allowed disabled:text-slate-400"
+                      >
+                        {isRemoving ? "Removing..." : "Remove from favorites"}
+                      </button>
+                    ) : (
+                      <button
+                        type="button"
+                        disabled={isAdding}
+                        onClick={() => addFavoriteDriverMutation.mutate(driver.id)}
+                        className="w-full rounded-xl bg-red-600 px-4 py-2 text-sm font-semibold text-white hover:bg-red-700 disabled:cursor-not-allowed disabled:bg-red-300"
+                      >
+                        {isAdding ? "Adding..." : "Add to favorites"}
+                      </button>
+                    )}
+                  </div>
                 </div>
               </article>
             );

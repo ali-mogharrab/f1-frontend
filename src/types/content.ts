@@ -13,6 +13,7 @@ export type Article = {
   slug: string;
   subtitle: string;
   summary: string;
+  content: string;
   cover_image: string | null;
   category: string | null;
   category_name: string | null;

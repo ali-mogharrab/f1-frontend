@@ -10,6 +10,7 @@ import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";
 import { PageHeader } from "../components/common/PageHeader";
 import { useAuth } from "../context/AuthContext";
+import { ImageWithFallback } from "../components/common/ImageWithFallback";
 
 export function TeamsPage() {
   const queryClient = useQueryClient();
@@ -92,8 +93,17 @@ export function TeamsPage() {
             return (
               <article
                 key={team.id}
-                className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md"
+                className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg"
               >
+                <div className="mb-5 flex h-24 items-center justify-center rounded-2xl bg-slate-50 p-4">
+                  <ImageWithFallback
+                    src={team.logo}
+                    alt={team.name}
+                    fallbackLabel={team.name}
+                    className="max-h-16 w-full object-contain"
+                  />
+                </div>
+                
                 <div className="mb-4">
                   <h2 className="text-xl font-bold text-slate-950">
                     {team.name}

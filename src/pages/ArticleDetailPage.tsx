@@ -3,6 +3,7 @@ import { Link, useParams } from "react-router-dom";
 import { getArticleBySlug } from "../api/contentApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";
+import { ImageWithFallback } from "../components/common/ImageWithFallback";
 
 function formatDate(dateValue: string | null) {
   if (!dateValue) {
@@ -71,7 +72,7 @@ export function ArticleDetailPage() {
         ← Back to articles
       </Link>
 
-      <div className="rounded-3xl bg-white p-8 shadow-sm">
+      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 sm:p-8">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600">
           {article.category_name ?? "Article"}
         </p>
@@ -109,6 +110,15 @@ export function ArticleDetailPage() {
             ))}
           </div>
         ) : null}
+
+        <div className="mt-8 overflow-hidden rounded-3xl">
+          <ImageWithFallback
+            src={article.cover_image}
+            alt={article.title}
+            fallbackLabel={article.category_name ?? "Article"}
+            className="h-72 w-full object-cover sm:h-96"
+          />
+        </div>
 
         {article.summary ? (
           <p className="mt-8 rounded-2xl bg-slate-50 p-5 text-lg leading-8 text-slate-700">
