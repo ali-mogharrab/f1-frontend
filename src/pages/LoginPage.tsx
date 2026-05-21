@@ -39,7 +39,7 @@ export function LoginPage() {
 
   return (
     <section className="mx-auto max-w-md">
-      <div className="rounded-3xl bg-white p-8 shadow-sm">
+      <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600">
           Account
         </p>

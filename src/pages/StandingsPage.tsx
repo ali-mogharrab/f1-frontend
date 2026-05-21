@@ -49,7 +49,7 @@ export function StandingsPage() {
         description="View Formula 1 driver and constructor championship standings."
       />
 
-      <div className="grid gap-6 lg:grid-cols-2">
+      <div className="grid gap-6 xl:grid-cols-2">
         <section className="rounded-2xl bg-white p-5 shadow-sm">
           <div className="mb-4">
             <h2 className="text-2xl font-bold text-slate-950">
@@ -63,7 +63,7 @@ export function StandingsPage() {
           {driverStandings.length === 0 ? (
             <EmptyState message="No driver standings found. Try running the backend seed command or adding standings in admin." />
           ) : (
-            <div className="overflow-x-auto">
+            <div className="-mx-2 overflow-x-auto px-2">
               <table className="w-full min-w-[640px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 text-slate-500">
@@ -133,7 +133,7 @@ export function StandingsPage() {
           {constructorStandings.length === 0 ? (
             <EmptyState message="No constructor standings found. Try running the backend seed command or adding standings in admin." />
           ) : (
-            <div className="overflow-x-auto">
+            <div className="-mx-2 overflow-x-auto px-2">
               <table className="w-full min-w-[600px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 text-slate-500">

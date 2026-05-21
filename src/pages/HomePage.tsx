@@ -73,30 +73,30 @@ export function HomePage() {
 
   return (
     <div className="space-y-8">
-      <section className="overflow-hidden rounded-3xl bg-slate-950 p-8 text-white shadow-sm">
+      <section className="overflow-hidden rounded-3xl bg-slate-950 p-6 text-white shadow-sm sm:p-8">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-400">
           Formula 1 Hub
         </p>
 
-        <h1 className="max-w-3xl text-4xl font-bold tracking-tight md:text-5xl">
+        <h1 className="max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl md:text-5xl">
           Follow Formula 1 data, races, standings, and stories.
         </h1>
 
-        <p className="mt-4 max-w-2xl text-lg text-slate-300">
+        <p className="mt-4 max-w-2xl text-base text-slate-300 sm:text-lg">
           A React frontend powered by your Django REST Framework API.
         </p>
 
-        <div className="mt-8 flex flex-wrap gap-3">
+        <div className="mt-8 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
           <Link
             to="/drivers"
-            className="rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700"
+            className="rounded-xl bg-red-600 px-5 py-3 text-sm font-semibold text-white hover:bg-red-700 text-center"
           >
             Explore drivers
           </Link>
 
           <Link
             to="/articles"
-            className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-100"
+            className="rounded-xl bg-white px-5 py-3 text-sm font-semibold text-slate-950 hover:bg-slate-100 text-center"
           >
             Read articles
           </Link>

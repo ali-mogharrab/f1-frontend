@@ -1,4 +1,5 @@
 import { useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 
@@ -11,89 +12,192 @@ const navLinks = [
   { label: "Articles", to: "/articles" },
 ];
 
+function getNavLinkClass(isActive: boolean) {
+  return isActive
+    ? "text-red-600"
+    : "text-slate-700 hover:text-red-600";
+}
+
 export function Navbar() {
-  const { isAuthenticated, user, logout } = useAuth();
   const queryClient = useQueryClient();
-  
+  const { isAuthenticated, user, logout } = useAuth();
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
   function handleLogout() {
     logout();
     queryClient.clear();
+    setIsMenuOpen(false);
+  }
+
+  function closeMenu() {
+    setIsMenuOpen(false);
   }
 
   return (
-    <header className="border-b border-slate-200 bg-white">
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-4 py-4">
-        <Link to="/" className="text-xl font-bold text-red-600">
-          F1 Hub
-        </Link>
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+      <nav className="mx-auto max-w-6xl px-4">
+        <div className="flex items-center justify-between py-4">
+          <Link
+            to="/"
+            onClick={closeMenu}
+            className="text-xl font-bold text-red-600"
+          >
+            F1 Hub
+          </Link>
 
-        <div className="flex items-center gap-4 text-sm font-medium">
-          {navLinks.map((link) => (
-            <NavLink
-              key={link.to}
-              to={link.to}
-              className={({ isActive }) =>
-                isActive
-                  ? "text-red-600"
-                  : "text-slate-700 hover:text-red-600"
-              }
-            >
-              {link.label}
-            </NavLink>
-          ))}
+          <button
+            type="button"
+            onClick={() => setIsMenuOpen((current) => !current)}
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 md:hidden"
+            aria-label="Toggle navigation menu"
+            aria-expanded={isMenuOpen}
+          >
+            {isMenuOpen ? "Close" : "Menu"}
+          </button>
 
-          {isAuthenticated ? (
-            <>
+          <div className="hidden items-center gap-4 text-sm font-medium md:flex">
+            {navLinks.map((link) => (
               <NavLink
-                to="/dashboard"
-                className={({ isActive }) =>
-                  isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
-                }
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) => getNavLinkClass(isActive)}
               >
-                Dashboard
+                {link.label}
               </NavLink>
+            ))}
 
-              <NavLink
-                to="/profile"
-                className={({ isActive }) =>
-                  isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
-                }
-              >
-                {user?.username}
-              </NavLink>
+            {isAuthenticated ? (
+              <>
+                <NavLink
+                  to="/dashboard"
+                  className={({ isActive }) => getNavLinkClass(isActive)}
+                >
+                  Dashboard
+                </NavLink>
 
-              <button
-                type="button"
-                onClick={handleLogout}
-                className="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
-              >
-                Logout
-              </button>
-            </>
-          ) : (
-            <div className="flex items-center gap-2">
-              <NavLink
-                to="/register"
-                className={({ isActive }) =>
-                  isActive ? "text-red-600" : "text-slate-700 hover:text-red-600"
-                }
-              >
-                Register
-              </NavLink>
+                <NavLink
+                  to="/profile"
+                  className={({ isActive }) => getNavLinkClass(isActive)}
+                >
+                  {user?.username}
+                </NavLink>
 
-              <NavLink
-                to="/login"
-                className={({ isActive }) =>
-                  isActive
-                    ? "rounded-lg bg-red-600 px-3 py-2 text-white"
-                    : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
-                }
-              >
-                Login
-              </NavLink>
-            </div>
-          )}
+                <button
+                  type="button"
+                  onClick={handleLogout}
+                  className="rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
+                >
+                  Logout
+                </button>
+              </>
+            ) : (
+              <div className="flex items-center gap-3">
+                <NavLink
+                  to="/register"
+                  className={({ isActive }) => getNavLinkClass(isActive)}
+                >
+                  Register
+                </NavLink>
+
+                <NavLink
+                  to="/login"
+                  className={({ isActive }) =>
+                    isActive
+                      ? "rounded-lg bg-red-600 px-3 py-2 text-white"
+                      : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
+                  }
+                >
+                  Login
+                </NavLink>
+              </div>
+            )}
+          </div>
         </div>
+
+        {isMenuOpen ? (
+          <div className="border-t border-slate-100 py-4 md:hidden">
+            <div className="flex flex-col gap-3 text-sm font-medium">
+              {navLinks.map((link) => (
+                <NavLink
+                  key={link.to}
+                  to={link.to}
+                  onClick={closeMenu}
+                  className={({ isActive }) =>
+                    isActive
+                      ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
+                      : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                  }
+                >
+                  {link.label}
+                </NavLink>
+              ))}
+
+              <div className="mt-2 border-t border-slate-100 pt-3">
+                {isAuthenticated ? (
+                  <div className="flex flex-col gap-3">
+                    <NavLink
+                      to="/dashboard"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                      }
+                    >
+                      Dashboard
+                    </NavLink>
+
+                    <NavLink
+                      to="/profile"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                      }
+                    >
+                      Profile: {user?.username}
+                    </NavLink>
+
+                    <button
+                      type="button"
+                      onClick={handleLogout}
+                      className="rounded-lg bg-slate-900 px-3 py-2 text-left text-white hover:bg-red-600"
+                    >
+                      Logout
+                    </button>
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-3">
+                    <NavLink
+                      to="/register"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                      }
+                    >
+                      Register
+                    </NavLink>
+
+                    <NavLink
+                      to="/login"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "rounded-lg bg-red-600 px-3 py-2 text-white"
+                          : "rounded-lg bg-slate-900 px-3 py-2 text-white hover:bg-red-600"
+                      }
+                    >
+                      Login
+                    </NavLink>
+                  </div>
+                )}
+              </div>
+            </div>
+          </div>
+        ) : null}
       </nav>
     </header>
   );

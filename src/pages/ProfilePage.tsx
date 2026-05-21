@@ -84,7 +84,7 @@ export function ProfilePage() {
         description="Update your public Formula 1 profile information."
       />
 
-      <div className="rounded-3xl bg-white p-8 shadow-sm">
+      <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
         {successMessage ? (
           <div className="mb-6 rounded-2xl bg-green-50 p-4 text-green-700">
             {successMessage}
