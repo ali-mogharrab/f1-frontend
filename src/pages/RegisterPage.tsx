@@ -49,7 +49,7 @@ export function RegisterPage() {
 
   return (
     <section className="mx-auto max-w-lg">
-      <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
+      <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600">
           Account
         </p>
@@ -71,7 +71,7 @@ export function RegisterPage() {
             <div>
               <label
                 htmlFor="firstName"
-                className="mb-1 block text-sm font-medium text-slate-700"
+                className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
               >
                 First name
               </label>
@@ -81,14 +81,14 @@ export function RegisterPage() {
                 type="text"
                 value={firstName}
                 onChange={(event) => setFirstName(event.target.value)}
-                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               />
             </div>
 
             <div>
               <label
                 htmlFor="lastName"
-                className="mb-1 block text-sm font-medium text-slate-700"
+                className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
               >
                 Last name
               </label>
@@ -98,7 +98,7 @@ export function RegisterPage() {
                 type="text"
                 value={lastName}
                 onChange={(event) => setLastName(event.target.value)}
-                className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+                className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               />
             </div>
           </div>
@@ -106,7 +106,7 @@ export function RegisterPage() {
           <div>
             <label
               htmlFor="username"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Username
             </label>
@@ -116,7 +116,7 @@ export function RegisterPage() {
               type="text"
               value={username}
               onChange={(event) => setUsername(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               required
             />
           </div>
@@ -124,7 +124,7 @@ export function RegisterPage() {
           <div>
             <label
               htmlFor="email"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Email
             </label>
@@ -134,7 +134,7 @@ export function RegisterPage() {
               type="email"
               value={email}
               onChange={(event) => setEmail(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               required
             />
           </div>
@@ -142,7 +142,7 @@ export function RegisterPage() {
           <div>
             <label
               htmlFor="password"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Password
             </label>
@@ -152,7 +152,7 @@ export function RegisterPage() {
               type="password"
               value={password}
               onChange={(event) => setPassword(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               required
             />
           </div>
@@ -160,7 +160,7 @@ export function RegisterPage() {
           <div>
             <label
               htmlFor="passwordConfirm"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Confirm password
             </label>
@@ -170,7 +170,7 @@ export function RegisterPage() {
               type="password"
               value={passwordConfirm}
               onChange={(event) => setPasswordConfirm(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               required
             />
           </div>

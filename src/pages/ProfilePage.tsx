@@ -84,7 +84,7 @@ export function ProfilePage() {
         description="Update your public Formula 1 profile information."
       />
 
-      <div className="rounded-3xl bg-white p-6 shadow-sm sm:p-8">
+      <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
         {successMessage ? (
           <div className="mb-6 rounded-2xl bg-green-50 p-4 text-green-700">
             {successMessage}
@@ -101,7 +101,7 @@ export function ProfilePage() {
           <div>
             <label
               htmlFor="bio"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Bio
             </label>
@@ -111,7 +111,7 @@ export function ProfilePage() {
               value={bio}
               onChange={(event) => setBio(event.target.value)}
               rows={5}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               placeholder="Tell us about your Formula 1 interests..."
             />
           </div>
@@ -119,7 +119,7 @@ export function ProfilePage() {
           <div>
             <label
               htmlFor="country"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Country
             </label>
@@ -129,7 +129,7 @@ export function ProfilePage() {
               type="text"
               value={country}
               onChange={(event) => setCountry(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               placeholder="Example: Türkiye"
             />
           </div>
@@ -137,7 +137,7 @@ export function ProfilePage() {
           <div>
             <label
               htmlFor="favoriteDriverName"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Favorite driver name
             </label>
@@ -147,7 +147,7 @@ export function ProfilePage() {
               type="text"
               value={favoriteDriverName}
               onChange={(event) => setFavoriteDriverName(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               placeholder="Example: Max Verstappen"
             />
           </div>
@@ -155,7 +155,7 @@ export function ProfilePage() {
           <div>
             <label
               htmlFor="favoriteTeamName"
-              className="mb-1 block text-sm font-medium text-slate-700"
+              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
             >
               Favorite team name
             </label>
@@ -165,7 +165,7 @@ export function ProfilePage() {
               type="text"
               value={favoriteTeamName}
               onChange={(event) => setFavoriteTeamName(event.target.value)}
-              className="w-full rounded-xl border border-slate-300 px-4 py-3 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100"
+              className="w-full rounded-xl border border-slate-300 bg-white px-4 py-3 text-slate-900 outline-none focus:border-red-500 focus:ring-2 focus:ring-red-100 dark:border-slate-700 dark:bg-slate-950 dark:text-white dark:focus:ring-red-950"
               placeholder="Example: Ferrari"
             />
           </div>

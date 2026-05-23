@@ -2,6 +2,8 @@ import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
+import { ThemeToggle } from "../common/ThemeToggle";
+
 
 const navLinks = [
   { label: "Home", to: "/" },
@@ -14,8 +16,8 @@ const navLinks = [
 
 function getNavLinkClass(isActive: boolean) {
   return isActive
-    ? "text-red-600"
-    : "text-slate-700 hover:text-red-600";
+    ? "text-red-600 dark:text-red-400"
+    : "text-slate-700 hover:text-red-600 dark:text-slate-300 dark:hover:text-red-400";
 }
 
 export function Navbar() {
@@ -34,13 +36,13 @@ export function Navbar() {
   }
 
   return (
-    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur">
+    <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 backdrop-blur dark:border-slate-800 dark:bg-slate-950/95">
       <nav className="mx-auto max-w-6xl px-4">
         <div className="flex items-center justify-between py-4">
           <Link
             to="/"
             onClick={closeMenu}
-            className="text-xl font-bold text-red-600"
+            className="text-xl font-bold text-red-600 dark:text-red-400"
           >
             F1 Hub
           </Link>
@@ -65,6 +67,8 @@ export function Navbar() {
                 {link.label}
               </NavLink>
             ))}
+
+            <ThemeToggle />
 
             {isAuthenticated ? (
               <>
@@ -115,7 +119,11 @@ export function Navbar() {
         </div>
 
         {isMenuOpen ? (
-          <div className="border-t border-slate-100 py-4 md:hidden">
+          <div className="border-t border-slate-100 py-4 md:hidden dark:border-slate-800">
+            <div className="mb-3 px-3">
+              <ThemeToggle />
+            </div>
+
             <div className="flex flex-col gap-3 text-sm font-medium">
               {navLinks.map((link) => (
                 <NavLink
@@ -124,8 +132,8 @@ export function Navbar() {
                   onClick={closeMenu}
                   className={({ isActive }) =>
                     isActive
-                      ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
-                      : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                      ? "rounded-lg bg-red-50 px-3 py-2 text-red-600 dark:bg-red-950/40 dark:text-red-400"
+                      : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-red-400"
                   }
                 >
                   {link.label}
@@ -140,8 +148,8 @@ export function Navbar() {
                       onClick={closeMenu}
                       className={({ isActive }) =>
                         isActive
-                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
-                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600 dark:bg-red-950/40 dark:text-red-400"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-red-400"
                       }
                     >
                       Dashboard
@@ -152,8 +160,8 @@ export function Navbar() {
                       onClick={closeMenu}
                       className={({ isActive }) =>
                         isActive
-                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
-                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600 dark:bg-red-950/40 dark:text-red-400"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-red-400"
                       }
                     >
                       Profile: {user?.username}
@@ -174,8 +182,8 @@ export function Navbar() {
                       onClick={closeMenu}
                       className={({ isActive }) =>
                         isActive
-                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600"
-                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600"
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600 dark:bg-red-950/40 dark:text-red-400"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-red-400"
                       }
                     >
                       Register
