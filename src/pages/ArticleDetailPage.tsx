@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { getArticleBySlug } from "../api/contentApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";

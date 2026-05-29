@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams } from "react-router";
 import { getDrivers, getRaceResults, getTeam } from "../api/racingApi";
 import { getConstructorStandings } from "../api/standingsApi";
 import { EmptyState } from "../components/common/EmptyState";

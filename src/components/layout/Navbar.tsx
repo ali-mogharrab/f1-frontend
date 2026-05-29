@@ -1,6 +1,6 @@
 import { useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink } from "react-router";
 import { useAuth } from "../../context/AuthContext";
 import { ThemeToggle } from "../common/ThemeToggle";
 

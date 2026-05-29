@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router";
 import { confirmPasswordReset } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { getApiErrorMessage } from "../utils/apiError";

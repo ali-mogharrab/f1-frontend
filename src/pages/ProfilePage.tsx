@@ -1,6 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useEffect, useState, type FormEvent } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router";
 import { getProfile, updateProfile } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { LoadingMessage } from "../components/common/LoadingMessage";
