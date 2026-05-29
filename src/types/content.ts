@@ -7,6 +7,16 @@ export type Tag = {
   updated_at: string;
 };
 
+export type Category = {
+  id: string;
+  name: string;
+  slug: string;
+  description: string;
+  articles_count?: number;
+  created_at: string;
+  updated_at: string;
+};
+
 export type Article = {
   id: string;
   title: string;

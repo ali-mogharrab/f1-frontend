@@ -50,13 +50,15 @@ export function RegisterPage() {
   return (
     <section className="mx-auto max-w-lg">
       <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600">
+        <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
           Account
         </p>
 
-        <h1 className="text-3xl font-bold text-slate-950">Create account</h1>
+        <h1 className="text-3xl font-bold text-slate-950 dark:text-white">
+          Create account
+        </h1>
 
-        <p className="mt-2 text-sm text-slate-600">
+        <p className="mt-2 text-sm text-slate-600 dark:text-slate-300">
           Register a new account to save favorite drivers, teams, and races.
         </p>
 
@@ -184,9 +186,9 @@ export function RegisterPage() {
           </button>
         </form>
 
-        <p className="mt-6 text-center text-sm text-slate-600">
+        <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
           Already have an account?{" "}
-          <Link to="/login" className="font-semibold text-red-600">
+          <Link to="/login" className="font-semibold text-red-600 dark:text-red-400">
             Login
           </Link>
         </p>

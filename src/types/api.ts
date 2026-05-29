@@ -4,3 +4,9 @@ export type PaginatedResponse<T> = {
   previous: string | null;
   results: T[];
 };
+
+export type ListQueryParams = {
+  search?: string;
+  ordering?: string;
+  [key: string]: string | number | boolean | undefined;
+};

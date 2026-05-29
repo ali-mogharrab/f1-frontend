@@ -65,3 +65,89 @@ export type Race = {
   created_at: string;
   updated_at: string;
 };
+
+export type Circuit = {
+  id: string;
+  name: string;
+  official_name: string;
+  country: string;
+  city: string;
+  length_km: string | null;
+  number_of_laps: number | null;
+  race_distance_km: string | null;
+  lap_record: string;
+  lap_record_driver: string;
+  lap_record_year: number | null;
+  latitude: string | null;
+  longitude: string | null;
+  image: string | null;
+  created_at: string;
+  updated_at: string;
+};
+
+export type RaceResult = {
+  id: string;
+  race: string;
+  race_name: string;
+  season_year: number;
+  round_number: number;
+  driver: string;
+  driver_name: string;
+  driver_abbreviation: string;
+  team: string;
+  team_name: string;
+  position: number;
+  classified_position: string;
+  grid_position: number | null;
+  laps_completed: number;
+  time: string;
+  fastest_lap: boolean;
+  fastest_lap_time: string;
+  fastest_lap_rank: number | null;
+  points: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type QualifyingResult = {
+  id: string;
+  race: string;
+  race_name: string;
+  season_year: number;
+  round_number: number;
+  driver: string;
+  driver_name: string;
+  driver_abbreviation: string;
+  team: string;
+  team_name: string;
+  position: number;
+  q1_time: string;
+  q2_time: string;
+  q3_time: string;
+  laps_completed: number;
+  penalty: string;
+  created_at: string;
+  updated_at: string;
+};
+
+export type SprintResult = {
+  id: string;
+  race: string;
+  race_name: string;
+  season_year: number;
+  round_number: number;
+  driver: string;
+  driver_name: string;
+  driver_abbreviation: string;
+  team: string;
+  team_name: string;
+  position: number;
+  grid_position: number | null;
+  laps_completed: number;
+  time: string;
+  points: string;
+  status: string;
+  created_at: string;
+  updated_at: string;
+};

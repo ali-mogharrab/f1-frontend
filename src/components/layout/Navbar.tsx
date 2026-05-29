@@ -44,13 +44,13 @@ export function Navbar() {
             onClick={closeMenu}
             className="text-xl font-bold text-red-600 dark:text-red-400"
           >
-            F1 Hub
+            Formula 1
           </Link>
 
           <button
             type="button"
             onClick={() => setIsMenuOpen((current) => !current)}
-            className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 md:hidden"
+            className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 dark:border-slate-700 dark:text-slate-200 md:hidden"
             aria-label="Toggle navigation menu"
             aria-expanded={isMenuOpen}
           >
@@ -84,6 +84,13 @@ export function Navbar() {
                   className={({ isActive }) => getNavLinkClass(isActive)}
                 >
                   {user?.username}
+                </NavLink>
+
+                <NavLink
+                  to="/change-password"
+                  className={({ isActive }) => getNavLinkClass(isActive)}
+                >
+                  Security
                 </NavLink>
 
                 <button
@@ -140,7 +147,7 @@ export function Navbar() {
                 </NavLink>
               ))}
 
-              <div className="mt-2 border-t border-slate-100 pt-3">
+              <div className="mt-2 border-t border-slate-100 pt-3 dark:border-slate-800">
                 {isAuthenticated ? (
                   <div className="flex flex-col gap-3">
                     <NavLink
@@ -165,6 +172,18 @@ export function Navbar() {
                       }
                     >
                       Profile: {user?.username}
+                    </NavLink>
+
+                    <NavLink
+                      to="/change-password"
+                      onClick={closeMenu}
+                      className={({ isActive }) =>
+                        isActive
+                          ? "rounded-lg bg-red-50 px-3 py-2 text-red-600 dark:bg-red-950/40 dark:text-red-400"
+                          : "rounded-lg px-3 py-2 text-slate-700 hover:bg-slate-50 hover:text-red-600 dark:text-slate-300 dark:hover:bg-slate-800 dark:hover:text-red-400"
+                      }
+                    >
+                      Security
                     </NavLink>
 
                     <button

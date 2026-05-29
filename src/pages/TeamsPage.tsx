@@ -1,4 +1,11 @@
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import {
+  keepPreviousData,
+  useMutation,
+  useQuery,
+  useQueryClient,
+} from "@tanstack/react-query";
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
 import {
   addFavoriteTeam,
   getFavoriteTeams,
@@ -11,14 +18,42 @@ import { LoadingMessage } from "../components/common/LoadingMessage";
 import { PageHeader } from "../components/common/PageHeader";
 import { useAuth } from "../context/AuthContext";
 import { ImageWithFallback } from "../components/common/ImageWithFallback";
+import { ListControls } from "../components/common/ListControls";
+
+const teamSortOptions = [
+  { label: "Name A-Z", value: "name" },
+  { label: "Name Z-A", value: "-name" },
+  { label: "Most titles", value: "-world_championships" },
+  { label: "Oldest entry", value: "first_team_entry" },
+  { label: "Newest entry", value: "-first_team_entry" },
+];
+
+const teamStatusOptions = [
+  { label: "All teams", value: "" },
+  { label: "Active", value: "true" },
+  { label: "Inactive", value: "false" },
+];
 
 export function TeamsPage() {
   const queryClient = useQueryClient();
   const { isAuthenticated } = useAuth();
+  const [search, setSearch] = useState("");
+  const [isActive, setIsActive] = useState("");
+  const [ordering, setOrdering] = useState(teamSortOptions[0].value);
+
+  const queryParams = useMemo(
+    () => ({
+      search: search.trim() || undefined,
+      is_active: isActive || undefined,
+      ordering,
+    }),
+    [isActive, ordering, search],
+  );
 
   const { data, isLoading, isError, error } = useQuery({
-    queryKey: ["teams"],
-    queryFn: getTeams,
+    queryKey: ["teams", queryParams],
+    queryFn: () => getTeams(queryParams),
+    placeholderData: keepPreviousData,
   });
 
   const favoriteTeamsQuery = useQuery({
@@ -68,11 +103,29 @@ export function TeamsPage() {
       <PageHeader
         eyebrow="Racing"
         title="Teams"
-        description="Browse Formula 1 teams from your Django REST API."
+        description="Browse Formula 1 teams by name, country, staff, and power unit."
+      />
+
+      <ListControls
+        searchValue={search}
+        searchPlaceholder="Search teams, countries, principals..."
+        onSearchChange={setSearch}
+        sortValue={ordering}
+        onSortChange={setOrdering}
+        sortOptions={teamSortOptions}
+        resultCount={data?.count}
+        filters={[
+          {
+            label: "Status",
+            value: isActive,
+            onChange: setIsActive,
+            options: teamStatusOptions,
+          },
+        ]}
       />
 
       {teams.length === 0 ? (
-        <EmptyState message="No teams found. Try running the backend seed command." />
+        <EmptyState message="No teams match the current view." />
       ) : (
         <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
           {teams.map((team) => {
@@ -93,54 +146,67 @@ export function TeamsPage() {
             return (
               <article
                 key={team.id}
-                className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg"
+                className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg dark:bg-slate-900 dark:ring-slate-800"
               >
-                <div className="mb-5 flex h-24 items-center justify-center rounded-2xl bg-slate-50 p-4">
+                <Link
+                  to={`/teams/${team.id}`}
+                  className="mb-5 flex h-24 items-center justify-center rounded-2xl bg-slate-50 p-4 dark:bg-slate-800"
+                >
                   <ImageWithFallback
                     src={team.logo}
                     alt={team.name}
                     fallbackLabel={team.name}
                     className="max-h-16 w-full object-contain"
                   />
-                </div>
+                </Link>
                 
                 <div className="mb-4">
-                  <h2 className="text-xl font-bold text-slate-950">
+                  <Link
+                    to={`/teams/${team.id}`}
+                    className="text-xl font-bold text-slate-950 hover:text-red-600 dark:text-white dark:hover:text-red-400"
+                  >
                     {team.name}
-                  </h2>
-                  <p className="text-sm text-slate-500">
+                  </Link>
+                  <p className="text-sm text-slate-500 dark:text-slate-400">
                     {team.official_name || "No official name"}
                   </p>
                 </div>
 
-                <div className="space-y-2 text-sm text-slate-600">
+                <div className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
                   <p>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       Country:
                     </span>{" "}
                     {team.country || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold text-slate-900">Base:</span>{" "}
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">Base:</span>{" "}
                     {team.base_location || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       Power unit:
                     </span>{" "}
                     {team.power_unit || "N/A"}
                   </p>
                   <p>
-                    <span className="font-semibold text-slate-900">
+                    <span className="font-semibold text-slate-900 dark:text-slate-100">
                       Championships:
                     </span>{" "}
                     {team.world_championships}
                   </p>
                 </div>
 
-                <div className="mt-5 border-t border-slate-100 pt-4">
+                <div className="mt-5 border-t border-slate-100 pt-4 dark:border-slate-800">
+                  <Link
+                    to={`/teams/${team.id}`}
+                    className="mb-3 block text-sm font-semibold text-red-600 hover:underline dark:text-red-400"
+                  >
+                    View team profile
+                  </Link>
+
                   {!isAuthenticated ? (
-                    <p className="text-sm text-slate-500">
+                    <p className="text-sm text-slate-500 dark:text-slate-400">
                       Login to add this team to favorites.
                     </p>
                   ) : isFavorite && favorite ? (
@@ -150,7 +216,7 @@ export function TeamsPage() {
                       onClick={() =>
                         removeFavoriteTeamMutation.mutate(favorite.id)
                       }
-                      className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 disabled:cursor-not-allowed disabled:text-slate-400"
+                      className="w-full rounded-xl bg-slate-100 px-4 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-200 disabled:cursor-not-allowed disabled:text-slate-400 dark:bg-slate-800 dark:text-slate-200 dark:hover:bg-slate-700"
                     >
                       {isRemoving ? "Removing..." : "Remove from favorites"}
                     </button>

@@ -40,15 +40,13 @@ export function LoginPage() {
   return (
     <section className="mx-auto max-w-md">
       <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
-        <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600">
+        <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
           Account
         </p>
 
-        <h1 className="text-3xl font-bold text-slate-950">Login</h1>
-
-        <p className="mt-2 text-sm text-slate-600">
-          Use your Django demo account or a user you created in the backend.
-        </p>
+        <h1 className="text-3xl font-bold text-slate-950 dark:text-white">
+          Login
+        </h1>
 
         {errorMessage ? (
           <div className="mt-6">
@@ -76,12 +74,14 @@ export function LoginPage() {
           </div>
 
           <div>
-            <label
-              htmlFor="password"
-              className="mb-1 block text-sm font-medium text-slate-700 dark:text-slate-200"
-            >
-              Password
-            </label>
+            <div className="mb-1 flex items-center justify-between gap-3">
+              <label
+                htmlFor="password"
+                className="block text-sm font-medium text-slate-700 dark:text-slate-200"
+              >
+                Password
+              </label>
+            </div>
 
             <input
               id="password"
@@ -101,10 +101,18 @@ export function LoginPage() {
             {isSubmitting ? "Logging in..." : "Login"}
           </button>
         </form>
-        <p className="mt-6 text-center text-sm text-slate-600">
+        <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
           Do not have an account?{" "}
-          <Link to="/register" className="font-semibold text-red-600">
+          <Link to="/register" className="font-semibold text-red-600 dark:text-red-400">
             Create one
+          </Link>
+        </p>
+        <p className="mt-3 text-center">
+          <Link
+                to="/forgot-password"
+                className="text-sm font-semibold text-red-600 dark:text-red-400"
+              >
+                Forgot password?
           </Link>
         </p>
       </div>

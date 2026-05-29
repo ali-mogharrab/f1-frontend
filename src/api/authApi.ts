@@ -3,13 +3,17 @@ import type {
   FavoriteDriver,
   FavoriteRace,
   FavoriteTeam,
+  ChangePasswordPayload,
   LoginPayload,
+  PasswordResetConfirmPayload,
+  PasswordResetRequestPayload,
   RegisterPayload,
   SuccessResponse,
   TokenPair,
   User,
   UserDashboard,
   UserProfile,
+  VerifyTokenPayload,
 } from "../types/auth";
 
 export async function login(payload: LoginPayload) {
@@ -20,6 +24,41 @@ export async function login(payload: LoginPayload) {
 export async function register(payload: RegisterPayload) {
   const response = await apiClient.post<SuccessResponse<User>>(
     "/users/register/",
+    payload,
+  );
+
+  return response.data;
+}
+
+export async function verifyToken(payload: VerifyTokenPayload) {
+  await apiClient.post("/users/token/verify/", payload);
+}
+
+export async function changePassword(payload: ChangePasswordPayload) {
+  const response = await apiClient.post<SuccessResponse<null>>(
+    "/users/password/change/",
+    payload,
+  );
+
+  return response.data;
+}
+
+export async function requestPasswordReset(
+  payload: PasswordResetRequestPayload,
+) {
+  const response = await apiClient.post<SuccessResponse<null>>(
+    "/users/password/reset/",
+    payload,
+  );
+
+  return response.data;
+}
+
+export async function confirmPasswordReset(
+  payload: PasswordResetConfirmPayload,
+) {
+  const response = await apiClient.post<SuccessResponse<null>>(
+    "/users/password/reset/confirm/",
     payload,
   );
 

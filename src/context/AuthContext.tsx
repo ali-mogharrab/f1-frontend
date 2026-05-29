@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -29,7 +30,7 @@ export function AuthProvider({ children }: AuthProviderProps) {
   const [user, setUser] = useState<User | null>(null);
   const [isLoadingUser, setIsLoadingUser] = useState(true);
 
-  async function refreshUser() {
+  const refreshUser = useCallback(async () => {
     const token = getAccessToken();
 
     if (!token) {
@@ -48,20 +49,22 @@ export function AuthProvider({ children }: AuthProviderProps) {
     } finally {
       setIsLoadingUser(false);
     }
-  }
+  }, []);
 
-  function setAuthTokens(access: string, refresh: string) {
+  const setAuthTokens = useCallback((access: string, refresh: string) => {
     saveTokens(access, refresh);
-  }
+  }, []);
 
-  function logout() {
+  const logout = useCallback(() => {
     clearTokens();
     setUser(null);
-  }
+  }, []);
 
   useEffect(() => {
-    refreshUser();
-  }, []);
+    queueMicrotask(() => {
+      void refreshUser();
+    });
+  }, [refreshUser]);
 
   const value = useMemo(
     () => ({
@@ -72,12 +75,13 @@ export function AuthProvider({ children }: AuthProviderProps) {
       logout,
       refreshUser,
     }),
-    [user, isLoadingUser],
+    [isLoadingUser, logout, refreshUser, setAuthTokens, user],
   );
 
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
 

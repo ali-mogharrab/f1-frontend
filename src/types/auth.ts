@@ -17,6 +17,27 @@ export type RegisterPayload = {
   password_confirm: string;
 };
 
+export type VerifyTokenPayload = {
+  token: string;
+};
+
+export type ChangePasswordPayload = {
+  old_password: string;
+  new_password: string;
+  new_password_confirm: string;
+};
+
+export type PasswordResetRequestPayload = {
+  email: string;
+};
+
+export type PasswordResetConfirmPayload = {
+  uid: string;
+  token: string;
+  new_password: string;
+  new_password_confirm: string;
+};
+
 export type UserProfile = {
   id: string;
   bio: string;

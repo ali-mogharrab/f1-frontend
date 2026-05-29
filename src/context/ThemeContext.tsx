@@ -1,5 +1,6 @@
 import {
   createContext,
+  useCallback,
   useContext,
   useEffect,
   useMemo,
@@ -28,15 +29,15 @@ type ThemeProviderProps = {
 export function ThemeProvider({ children }: ThemeProviderProps) {
   const [theme, setThemeState] = useState<Theme>(() => getPreferredTheme());
 
-  function setTheme(theme: Theme) {
+  const setTheme = useCallback((theme: Theme) => {
     setThemeState(theme);
     saveTheme(theme);
     applyTheme(theme);
-  }
+  }, []);
 
-  function toggleTheme() {
+  const toggleTheme = useCallback(() => {
     setTheme(theme === "dark" ? "light" : "dark");
-  }
+  }, [setTheme, theme]);
 
   useEffect(() => {
     applyTheme(theme);
@@ -48,12 +49,13 @@ export function ThemeProvider({ children }: ThemeProviderProps) {
       toggleTheme,
       setTheme,
     }),
-    [theme],
+    [setTheme, theme, toggleTheme],
   );
 
   return <ThemeContext.Provider value={value}>{children}</ThemeContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useTheme() {
   const context = useContext(ThemeContext);
 
