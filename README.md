@@ -36,6 +36,40 @@ The home page highlights the current season, upcoming race, latest completed rac
 - Axios
 - Django REST Framework API integration
 
+## Screenshots
+
+### Home Page
+
+![Home page](docs/screenshots/home.png)
+
+### Drivers Page
+
+![Drivers page](docs/screenshots/drivers.png)
+
+### Driver Detail Page
+
+![Driver detail page](docs/screenshots/driver_detail.png)
+
+### Teams Page
+
+![Teams page](docs/screenshots/teams.png)
+
+### Races Page
+
+![Races page](docs/screenshots/races.png)
+
+### Standings Page
+
+![Standings page](docs/screenshots/standings.png)
+
+### Articles Page
+
+![Articles page](docs/screenshots/articles.png)
+
+### Dashboard Page
+
+![Dashboard page](docs/screenshots/dashboard.png)
+
 ## Main Pages
 
 ```txt
