@@ -64,20 +64,20 @@ export function ArticleDetailPage() {
   const article = data;
 
   return (
-    <article className="mx-auto max-w-3xl">
+    <article className="mx-auto max-w-4xl">
       <Link
         to="/articles"
-        className="mb-6 inline-block text-sm font-semibold text-red-600 hover:underline dark:text-red-400"
+        className="back-link mb-6"
       >
         ← Back to articles
       </Link>
 
-      <div className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800 sm:p-8">
+      <div className="article-detail surface-panel rounded-3xl p-6 sm:p-10">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
           {article.category_name ?? "Article"}
         </p>
 
-        <h1 className="text-4xl font-bold tracking-tight text-slate-950 dark:text-white">
+        <h1 className="text-4xl font-black tracking-[-0.05em] text-slate-950 dark:text-white sm:text-5xl">
           {article.title}
         </h1>
 
@@ -128,7 +128,7 @@ export function ArticleDetailPage() {
           </p>
         ) : null}
 
-        <div className="mt-8 whitespace-pre-line text-base leading-8 text-slate-700 dark:text-slate-300">
+        <div className="article-body mt-8 whitespace-pre-line text-base leading-8 text-slate-700 dark:text-slate-300">
           {article.content}
         </div>
 

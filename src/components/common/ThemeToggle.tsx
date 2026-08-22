@@ -1,4 +1,5 @@
 import { useTheme } from "../../context/ThemeContext";
+import { Icon } from "./Icon";
 
 export function ThemeToggle() {
   const { theme, toggleTheme } = useTheme();
@@ -9,10 +10,11 @@ export function ThemeToggle() {
     <button
       type="button"
       onClick={toggleTheme}
-      className="rounded-lg border border-slate-200 px-3 py-2 text-sm font-semibold text-slate-700 hover:bg-slate-50 dark:border-slate-700 dark:text-slate-200 dark:hover:bg-slate-800"
-      aria-label="Toggle dark mode"
+      className="icon-button"
+      aria-label={isDark ? "Switch to light mode" : "Switch to dark mode"}
+      title={isDark ? "Light mode" : "Dark mode"}
     >
-      {isDark ? "☀️ Light" : "🌙 Dark"}
+      <Icon name={isDark ? "sun" : "moon"} className="h-[18px] w-[18px]" />
     </button>
   );
 }

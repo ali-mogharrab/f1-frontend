@@ -51,7 +51,7 @@ export function ChangePasswordPage() {
         description="Update the password used to sign in to your Formula 1 account."
       />
 
-      <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
+      <div className="auth-card">
         {successMessage ? (
           <div className="mb-6 rounded-2xl bg-green-50 p-4 text-sm font-medium text-green-700 dark:bg-green-950/40 dark:text-green-300">
             {successMessage}

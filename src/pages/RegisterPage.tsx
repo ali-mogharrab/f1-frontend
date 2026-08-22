@@ -48,8 +48,8 @@ export function RegisterPage() {
   }
 
   return (
-    <section className="mx-auto max-w-lg">
-      <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
+    <section className="auth-shell max-w-lg">
+      <div className="auth-card">
         <p className="mb-3 text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
           Account
         </p>

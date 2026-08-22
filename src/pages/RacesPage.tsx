@@ -155,17 +155,18 @@ export function RacesPage() {
             return (
               <article
                 key={race.id}
-                className="rounded-2xl bg-white p-5 shadow-sm transition hover:-translate-y-1 hover:shadow-md dark:bg-slate-900"
+                className="surface-panel card-lift relative overflow-hidden rounded-3xl p-5 sm:p-6"
               >
+                <span className="absolute bottom-0 left-0 top-0 w-1 bg-gradient-to-b from-red-500 via-red-500/50 to-transparent" />
                 <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
                   <div>
-                    <p className="mb-2 text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
+                    <p className="mb-2 text-[10px] font-extrabold uppercase tracking-[0.18em] text-red-600 dark:text-red-400">
                       Round {race.round_number} · {race.season_year}
                     </p>
 
                     <Link
                       to={`/races/${race.id}`}
-                      className="text-2xl font-bold text-slate-950 hover:text-red-600 dark:text-white dark:hover:text-red-400"
+                      className="text-2xl font-extrabold tracking-tight text-slate-950 hover:text-red-600 dark:text-white dark:hover:text-red-400 sm:text-3xl"
                     >
                       {race.name}
                     </Link>
@@ -175,24 +176,24 @@ export function RacesPage() {
                     </p>
                   </div>
 
-                  <span className="w-fit rounded-full bg-slate-100 px-3 py-1 text-sm font-semibold capitalize text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                  <span className="w-fit rounded-full border border-slate-200 bg-slate-50 px-3 py-1.5 text-[10px] font-extrabold uppercase tracking-[0.13em] text-slate-700 dark:border-white/8 dark:bg-white/5 dark:text-slate-200">
                     {race.status}
                   </span>
                 </div>
 
-                <div className="mt-5 grid gap-4 text-sm text-slate-600 dark:text-slate-300 md:grid-cols-3">
+                <div className="mt-6 grid gap-3 text-sm text-slate-600 dark:text-slate-300 md:grid-cols-3">
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-slate-100">Race date</p>
+                    <p className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-slate-400">Race date</p>
                     <p>{formatDate(race.race_date)}</p>
                   </div>
 
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-slate-100">Circuit</p>
+                    <p className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-slate-400">Circuit</p>
                     <p>{race.circuit_name}</p>
                   </div>
 
                   <div>
-                    <p className="font-semibold text-slate-900 dark:text-slate-100">Country</p>
+                    <p className="text-[9px] font-extrabold uppercase tracking-[0.15em] text-slate-400">Country</p>
                     <p>{race.circuit_country}</p>
                   </div>
                 </div>

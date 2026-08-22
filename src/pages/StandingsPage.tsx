@@ -87,9 +87,9 @@ export function StandingsPage() {
       />
 
       <div className="grid gap-6 xl:grid-cols-2">
-        <section className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <section className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
+            <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 dark:text-white">
               Driver standings
             </h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
@@ -101,7 +101,7 @@ export function StandingsPage() {
             <EmptyState message="No driver standings found. Try running the backend seed command or adding standings in admin." />
           ) : (
             <div className="-mx-2 overflow-x-auto px-2">
-              <table className="w-full min-w-[640px] text-left text-sm">
+              <table className="w-full min-w-[520px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400">
                     <th className="py-3 pr-4 font-semibold">Pos</th>
@@ -169,9 +169,9 @@ export function StandingsPage() {
           )}
         </section>
 
-        <section className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <section className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <div className="mb-4">
-            <h2 className="text-2xl font-bold text-slate-950 dark:text-white">
+            <h2 className="text-2xl font-extrabold tracking-tight text-slate-950 dark:text-white">
               Constructor standings
             </h2>
             <p className="mt-1 text-sm text-slate-600 dark:text-slate-300">
@@ -183,7 +183,7 @@ export function StandingsPage() {
             <EmptyState message="No constructor standings found. Try running the backend seed command or adding standings in admin." />
           ) : (
             <div className="-mx-2 overflow-x-auto px-2">
-              <table className="w-full min-w-[600px] text-left text-sm">
+              <table className="w-full min-w-[500px] text-left text-sm">
                 <thead>
                   <tr className="border-b border-slate-200 text-slate-500 dark:border-slate-800 dark:text-slate-400">
                     <th className="py-3 pr-4 font-semibold">Pos</th>

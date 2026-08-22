@@ -91,22 +91,22 @@ export function ArticlesPage() {
           {articles.map((article) => (
             <article
               key={article.id}
-              className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg dark:bg-slate-900 dark:ring-slate-800"
+              className="surface-panel card-lift group overflow-hidden rounded-3xl"
             >
               <ImageWithFallback
                 src={article.cover_image}
                 alt={article.title}
                 fallbackLabel={article.category_name ?? "Article"}
-                className="h-48 w-full object-cover"
+                className="h-52 w-full object-cover transition duration-500 group-hover:scale-[1.035]"
               />
 
               <div className="flex min-h-64 flex-col p-5">
                 <div className="mb-4">
-                  <p className="mb-2 text-sm font-semibold text-red-600 dark:text-red-400">
+                  <p className="mb-3 inline-flex rounded-full bg-red-50 px-2.5 py-1 text-[10px] font-extrabold uppercase tracking-[0.13em] text-red-600 dark:bg-red-500/10 dark:text-red-400">
                     {article.category_name ?? "Article"}
                   </p>
 
-                  <h2 className="text-xl font-bold text-slate-950 dark:text-white">
+                  <h2 className="text-xl font-extrabold leading-tight tracking-tight text-slate-950 dark:text-white">
                     {article.title}
                   </h2>
 

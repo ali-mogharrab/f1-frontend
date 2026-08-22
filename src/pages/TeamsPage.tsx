@@ -146,17 +146,17 @@ export function TeamsPage() {
             return (
               <article
                 key={team.id}
-                className="rounded-3xl bg-white p-5 shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg dark:bg-slate-900 dark:ring-slate-800"
+                className="surface-panel card-lift group rounded-3xl p-5"
               >
                 <Link
                   to={`/teams/${team.id}`}
-                  className="mb-5 flex h-24 items-center justify-center rounded-2xl bg-slate-50 p-4 dark:bg-slate-800"
+                  className="team-logo-stage mb-5 flex h-32 items-center justify-center rounded-2xl p-5"
                 >
                   <ImageWithFallback
                     src={team.logo}
                     alt={team.name}
                     fallbackLabel={team.name}
-                    className="max-h-16 w-full object-contain"
+                    className="max-h-20 w-full object-contain transition duration-300 group-hover:scale-105"
                   />
                 </Link>
                 
@@ -172,7 +172,7 @@ export function TeamsPage() {
                   </p>
                 </div>
 
-                <div className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
+                <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-slate-600 dark:text-slate-300">
                   <p>
                     <span className="font-semibold text-slate-900 dark:text-slate-100">
                       Country:

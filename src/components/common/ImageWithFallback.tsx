@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { getMediaUrl } from "../../utils/media";
+import { Icon } from "./Icon";
 
 type ImageWithFallbackProps = {
   src: string | null | undefined;
@@ -21,9 +22,12 @@ export function ImageWithFallback({
   if (!imageUrl || hasError) {
     return (
       <div
-        className={`flex items-center justify-center bg-gradient-to-br from-slate-100 to-slate-200 text-sm font-semibold text-slate-500 dark:from-slate-800 dark:to-slate-900 dark:text-slate-300 ${className}`}
+        className={`image-fallback flex flex-col items-center justify-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-300 ${className}`}
       >
-        {fallbackLabel}
+        <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-slate-300/60 bg-white/50 text-red-500 dark:border-white/10 dark:bg-white/5">
+          <Icon name="flag" className="h-5 w-5" />
+        </span>
+        <span className="max-w-[80%] text-center text-[10px] font-extrabold uppercase tracking-[0.14em]">{fallbackLabel}</span>
       </div>
     );
   }

@@ -96,7 +96,7 @@ export function ProfilePage() {
         description="Update your public Formula 1 profile information."
       />
 
-      <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+      <div className="surface-panel mb-6 rounded-2xl p-4">
         <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <h2 className="font-bold text-slate-950 dark:text-white">
@@ -116,7 +116,7 @@ export function ProfilePage() {
         </div>
       </div>
 
-      <div className="rounded-3xl bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8">
+      <div className="auth-card">
         {successMessage ? (
           <div className="mb-6 rounded-2xl bg-green-50 p-4 text-green-700 dark:bg-green-950/40 dark:text-green-300">
             {successMessage}

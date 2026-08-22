@@ -78,17 +78,17 @@ export function DriverDetailPage() {
     <article className="space-y-6">
       <Link
         to="/drivers"
-        className="inline-block text-sm font-semibold text-red-600 hover:underline dark:text-red-400"
+        className="back-link"
       >
         Back to drivers
       </Link>
 
-      <section className="grid overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800 lg:grid-cols-[360px_1fr]">
+      <section className="detail-hero surface-panel grid overflow-hidden rounded-3xl lg:grid-cols-[380px_1fr]">
         <ImageWithFallback
           src={driver.image}
           alt={driver.full_name}
           fallbackLabel={driver.abbreviation}
-          className="h-80 w-full object-cover lg:h-full"
+          className="detail-driver-image h-80 w-full object-contain object-center lg:h-full"
         />
 
         <div className="p-6 sm:p-8">
@@ -97,7 +97,7 @@ export function DriverDetailPage() {
               <p className="text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
                 Driver
               </p>
-              <h1 className="mt-1 text-3xl font-bold text-slate-950 dark:text-white">
+              <h1 className="detail-title mt-1">
                 {driver.full_name}
               </h1>
               <p className="mt-2 text-slate-600 dark:text-slate-300">
@@ -171,7 +171,7 @@ export function DriverDetailPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Championship standings
           </h2>
@@ -230,7 +230,7 @@ export function DriverDetailPage() {
           )}
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Recent race results
           </h2>

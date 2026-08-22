@@ -111,53 +111,53 @@ export function RaceDetailPage() {
     <article className="space-y-6">
       <Link
         to="/races"
-        className="inline-block text-sm font-semibold text-red-600 hover:underline dark:text-red-400"
+        className="back-link"
       >
         Back to races
       </Link>
 
-      <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800 sm:p-8">
+      <section className="race-detail-hero rounded-3xl p-6 sm:p-8">
         <div className="flex flex-col gap-4 sm:flex-row sm:items-start sm:justify-between">
           <div>
             <p className="text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
               Round {race.round_number} · {race.season_year}
             </p>
-            <h1 className="mt-1 text-3xl font-bold text-slate-950 dark:text-white">
+            <h1 className="detail-title mt-2 !text-white">
               {race.name}
             </h1>
-            <p className="mt-2 text-slate-600 dark:text-slate-300">
+            <p className="mt-2 text-slate-400">
               {race.official_name || "No official name"}
             </p>
           </div>
 
-          <span className="w-fit rounded-full bg-slate-100 px-4 py-2 text-sm font-bold capitalize text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+          <span className="w-fit rounded-full border border-white/10 bg-white/6 px-4 py-2 text-[10px] font-extrabold uppercase tracking-[0.14em] text-slate-200">
             {race.status}
           </span>
         </div>
 
-        <dl className="mt-8 grid gap-4 text-sm md:grid-cols-3">
-          <div>
-            <dt className="font-semibold text-slate-900 dark:text-slate-100">
+        <dl className="mt-8 grid gap-3 text-sm md:grid-cols-3">
+          <div className="race-session-card">
+            <dt className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-red-400">
               Race
             </dt>
-            <dd className="mt-1 text-slate-600 dark:text-slate-300">
+            <dd className="mt-2 text-slate-300">
               {formatDate(race.race_date)} · {formatTime(race.race_time)}
             </dd>
           </div>
-          <div>
-            <dt className="font-semibold text-slate-900 dark:text-slate-100">
+          <div className="race-session-card">
+            <dt className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-red-400">
               Qualifying
             </dt>
-            <dd className="mt-1 text-slate-600 dark:text-slate-300">
+            <dd className="mt-2 text-slate-300">
               {formatDate(race.qualifying_date)} ·{" "}
               {formatTime(race.qualifying_time)}
             </dd>
           </div>
-          <div>
-            <dt className="font-semibold text-slate-900 dark:text-slate-100">
+          <div className="race-session-card">
+            <dt className="text-[9px] font-extrabold uppercase tracking-[0.16em] text-red-400">
               Sprint
             </dt>
-            <dd className="mt-1 text-slate-600 dark:text-slate-300">
+            <dd className="mt-2 text-slate-300">
               {formatDate(race.sprint_date)} · {formatTime(race.sprint_time)}
             </dd>
           </div>
@@ -165,7 +165,7 @@ export function RaceDetailPage() {
       </section>
 
       <section className="grid gap-6 lg:grid-cols-[1fr_360px]">
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Race results
           </h2>
@@ -233,7 +233,7 @@ export function RaceDetailPage() {
         </div>
 
         <aside className="space-y-6">
-          <div className="overflow-hidden rounded-2xl bg-white shadow-sm dark:bg-slate-900">
+          <div className="surface-panel overflow-hidden rounded-3xl">
             <ImageWithFallback
               src={circuit?.image}
               alt={race.circuit_name}
@@ -287,7 +287,7 @@ export function RaceDetailPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-2">
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Qualifying
           </h2>
@@ -351,7 +351,7 @@ export function RaceDetailPage() {
           )}
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel overflow-hidden rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Sprint
           </h2>

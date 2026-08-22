@@ -77,12 +77,12 @@ export function TeamDetailPage() {
     <article className="space-y-6">
       <Link
         to="/teams"
-        className="inline-block text-sm font-semibold text-red-600 hover:underline dark:text-red-400"
+        className="back-link"
       >
         Back to teams
       </Link>
 
-      <section className="rounded-3xl bg-white p-6 shadow-sm ring-1 ring-slate-100 dark:bg-slate-900 dark:ring-slate-800 sm:p-8">
+      <section className="detail-hero surface-panel rounded-3xl p-6 sm:p-8">
         <div className="grid gap-8 lg:grid-cols-[280px_1fr] lg:items-start">
           <div className="flex min-h-44 items-center justify-center rounded-2xl bg-slate-50 p-6 dark:bg-slate-800">
             <ImageWithFallback
@@ -99,7 +99,7 @@ export function TeamDetailPage() {
                 <p className="text-sm font-semibold uppercase tracking-wide text-red-600 dark:text-red-400">
                   Team
                 </p>
-                <h1 className="mt-1 text-3xl font-bold text-slate-950 dark:text-white">
+                <h1 className="detail-title mt-1">
                   {team.name}
                 </h1>
                 <p className="mt-2 text-slate-600 dark:text-slate-300">
@@ -194,7 +194,7 @@ export function TeamDetailPage() {
       </section>
 
       <section className="grid gap-6 xl:grid-cols-3">
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Current drivers
           </h2>
@@ -228,7 +228,7 @@ export function TeamDetailPage() {
           )}
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Constructor seasons
           </h2>
@@ -266,7 +266,7 @@ export function TeamDetailPage() {
           )}
         </div>
 
-        <div className="rounded-2xl bg-white p-5 shadow-sm dark:bg-slate-900">
+        <div className="surface-panel rounded-3xl p-5 sm:p-6">
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Recent race results
           </h2>

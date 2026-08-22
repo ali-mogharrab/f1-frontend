@@ -148,18 +148,18 @@ export function DriversPage() {
             return (
               <article
                 key={driver.id}
-                className="overflow-hidden rounded-3xl bg-white shadow-sm ring-1 ring-slate-100 transition hover:-translate-y-1 hover:shadow-lg dark:bg-slate-900 dark:ring-slate-800"
+                className="surface-panel card-lift group overflow-hidden rounded-3xl"
               >
                 <Link to={`/drivers/${driver.id}`} className="block">
                   <ImageWithFallback
                     src={driver.image}
                     alt={driver.full_name}
                     fallbackLabel={driver.abbreviation}
-                    className="h-56 w-full object-cover"
+                    className="driver-card-image h-64 w-full object-contain object-bottom"
                   />
                 </Link>
 
-                <div className="p-5">
+                <div className="border-t border-slate-100 p-5 dark:border-white/8">
                   <div className="mb-4 flex items-start justify-between gap-4">
                     <div>
                       <Link
@@ -173,13 +173,13 @@ export function DriversPage() {
                       </p>
                     </div>
 
-                    <span className="rounded-full bg-slate-100 px-3 py-1 text-sm font-bold text-slate-700 dark:bg-slate-800 dark:text-slate-200">
+                    <span className="rounded-lg border border-slate-200/80 bg-slate-100 px-3 py-1.5 text-xs font-extrabold tracking-[0.1em] text-slate-700 dark:border-white/8 dark:bg-white/5 dark:text-slate-200">
                       {driver.abbreviation}
                     </span>
                   </div>
 
-                  <div className="space-y-2 text-sm text-slate-600 dark:text-slate-300">
-                    <p>
+                  <div className="grid grid-cols-2 gap-x-4 gap-y-3 text-sm text-slate-600 dark:text-slate-300">
+                    <p className="col-span-2">
                       <span className="font-semibold text-slate-900 dark:text-slate-100">
                         Number:
                       </span>{" "}

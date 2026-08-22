@@ -1,3 +1,5 @@
+import { Icon } from "./Icon";
+
 type SelectOption = {
   label: string;
   value: string;
@@ -32,31 +34,32 @@ export function ListControls({
   resultCount,
 }: ListControlsProps) {
   return (
-    <div className="mb-6 rounded-2xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
+    <div className="list-controls mb-7">
       <div className="grid gap-3 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-end">
         <label className="block">
-          <span className="mb-1 block text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
-            Search
+          <span className="control-label">Search database</span>
+          <span className="search-field-wrap block">
+            <Icon name="search" className="search-field-icon" />
+            <input
+              type="search"
+              value={searchValue}
+              onChange={(event) => onSearchChange(event.target.value)}
+              placeholder={searchPlaceholder}
+              className="control-field text-sm placeholder:text-slate-400"
+            />
           </span>
-          <input
-            type="search"
-            value={searchValue}
-            onChange={(event) => onSearchChange(event.target.value)}
-            placeholder={searchPlaceholder}
-            className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm text-slate-950 outline-none transition placeholder:text-slate-400 focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white"
-          />
         </label>
 
         <div className="grid gap-3 sm:grid-cols-2 lg:flex">
           {filters.map((filter) => (
             <label key={filter.label} className="block">
-              <span className="mb-1 block text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
+              <span className="control-label">
                 {filter.label}
               </span>
               <select
                 value={filter.value}
                 onChange={(event) => filter.onChange(event.target.value)}
-                className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-950 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white sm:min-w-40"
+                className="control-field text-sm font-semibold sm:min-w-40"
               >
                 {filter.options.map((option) => (
                   <option key={option.value} value={option.value}>
@@ -68,13 +71,13 @@ export function ListControls({
           ))}
 
           <label className="block">
-            <span className="mb-1 block text-xs font-semibold uppercase text-slate-500 dark:text-slate-400">
+            <span className="control-label">
               Sort
             </span>
             <select
               value={sortValue}
               onChange={(event) => onSortChange(event.target.value)}
-              className="h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm font-medium text-slate-950 outline-none transition focus:border-red-500 focus:ring-2 focus:ring-red-500/20 dark:border-slate-700 dark:bg-slate-950 dark:text-white sm:min-w-44"
+              className="control-field text-sm font-semibold sm:min-w-44"
             >
               {sortOptions.map((option) => (
                 <option key={option.value} value={option.value}>
@@ -87,8 +90,8 @@ export function ListControls({
       </div>
 
       {typeof resultCount === "number" ? (
-        <p className="mt-3 text-sm text-slate-500 dark:text-slate-400">
-          Showing {resultCount.toLocaleString()} result
+        <p className="result-count">
+          {resultCount.toLocaleString()} result
           {resultCount === 1 ? "" : "s"}
         </p>
       ) : null}
