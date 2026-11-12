@@ -1,3 +1,5 @@
+import { PaginationControls } from "../components/common/PaginationControls";
+import { useListPage } from "../hooks/useListPage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -31,15 +33,19 @@ export function StandingsPage() {
     [ordering, search],
   );
 
+  const scope = JSON.stringify(queryParams);
+  const [driverPage, setDriverPage] = useListPage(scope);
+  const [constructorPage, setConstructorPage] = useListPage(scope);
+
   const driverStandingsQuery = useQuery({
-    queryKey: ["driver-standings", queryParams],
-    queryFn: () => getDriverStandings(queryParams),
+    queryKey: ["driver-standings", queryParams, driverPage],
+    queryFn: () => getDriverStandings({ ...queryParams, page: driverPage }),
     placeholderData: keepPreviousData,
   });
 
   const constructorStandingsQuery = useQuery({
-    queryKey: ["constructor-standings", queryParams],
-    queryFn: () => getConstructorStandings(queryParams),
+    queryKey: ["constructor-standings", queryParams, constructorPage],
+    queryFn: () => getConstructorStandings({ ...queryParams, page: constructorPage }),
     placeholderData: keepPreviousData,
   });
 
@@ -96,6 +102,15 @@ export function StandingsPage() {
               Championship ranking by driver.
             </p>
           </div>
+
+          <PaginationControls
+            label="Driver standings pages"
+            page={driverPage}
+            next={driverStandingsQuery.data?.next}
+            previous={driverStandingsQuery.data?.previous}
+            pending={driverStandingsQuery.isFetching}
+            onPageChange={setDriverPage}
+          />
 
           {driverStandings.length === 0 ? (
             <EmptyState message="No driver standings found. Try running the backend seed command or adding standings in admin." />
@@ -178,6 +193,15 @@ export function StandingsPage() {
               Championship ranking by team.
             </p>
           </div>
+
+          <PaginationControls
+            label="Constructor standings pages"
+            page={constructorPage}
+            next={constructorStandingsQuery.data?.next}
+            previous={constructorStandingsQuery.data?.previous}
+            pending={constructorStandingsQuery.isFetching}
+            onPageChange={setConstructorPage}
+          />
 
           {constructorStandings.length === 0 ? (
             <EmptyState message="No constructor standings found. Try running the backend seed command or adding standings in admin." />

@@ -1,5 +1,5 @@
 import { useState, type FormEvent } from "react";
-import { Link, useNavigate } from "react-router";
+import { Link, useLocation, useNavigate } from "react-router";
 import { login } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { useAuth } from "../context/AuthContext";
@@ -7,10 +7,11 @@ import { getApiErrorMessage } from "../utils/apiError";
 
 export function LoginPage() {
   const navigate = useNavigate();
-  const { setAuthTokens, refreshUser } = useAuth();
+  const location = useLocation();
+  const { setAuthTokens, refreshUser, sessionExpired } = useAuth();
 
-  const [username, setUsername] = useState("demoadmin");
-  const [password, setPassword] = useState("DemoPassword123!");
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -29,7 +30,16 @@ export function LoginPage() {
       setAuthTokens(tokens.access, tokens.refresh);
       await refreshUser();
 
-      navigate("/dashboard");
+      const from: unknown = location.state?.from;
+      navigate(
+        typeof from === "string" &&
+          from.startsWith("/") &&
+          !from.startsWith("//") &&
+          !from.includes("\\")
+          ? from
+          : "/dashboard",
+        { replace: true },
+      );
     } catch (error) {
       setErrorMessage(getApiErrorMessage(error));
     } finally {
@@ -47,6 +57,19 @@ export function LoginPage() {
         <h1 className="text-3xl font-bold text-slate-950 dark:text-white">
           Login
         </h1>
+        {location.state?.reason === "password-changed" && (
+          <p role="status" className="mt-4 text-sm text-slate-600 dark:text-slate-300">
+            Password changed. Please sign in with your new password.
+          </p>
+        )}
+        {(sessionExpired || location.state?.reason === "session-expired") && (
+          <p
+            role="status"
+            className="mt-4 text-sm text-slate-600 dark:text-slate-300"
+          >
+            Your session expired. Please sign in to continue.
+          </p>
+        )}
 
         {errorMessage ? (
           <div className="mt-6">
@@ -103,16 +126,19 @@ export function LoginPage() {
         </form>
         <p className="mt-6 text-center text-sm text-slate-600 dark:text-slate-300">
           Do not have an account?{" "}
-          <Link to="/register" className="font-semibold text-red-600 dark:text-red-400">
+          <Link
+            to="/register"
+            className="font-semibold text-red-600 dark:text-red-400"
+          >
             Create one
           </Link>
         </p>
         <p className="mt-3 text-center">
           <Link
-                to="/forgot-password"
-                className="text-sm font-semibold text-red-600 dark:text-red-400"
-              >
-                Forgot password?
+            to="/forgot-password"
+            className="text-sm font-semibold text-red-600 dark:text-red-400"
+          >
+            Forgot password?
           </Link>
         </p>
       </div>

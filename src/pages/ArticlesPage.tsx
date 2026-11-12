@@ -1,3 +1,5 @@
+import { PaginationControls } from "../components/common/PaginationControls";
+import { useListPage } from "../hooks/useListPage";
 import { keepPreviousData, useQuery } from "@tanstack/react-query";
 import { useMemo, useState } from "react";
 import { Link } from "react-router";
@@ -33,15 +35,18 @@ export function ArticlesPage() {
   const [search, setSearch] = useState("");
   const [ordering, setOrdering] = useState(articleSortOptions[0].value);
 
+  const [page, setPage] = useListPage(JSON.stringify([search, ordering]));
+
   const queryParams = useMemo(
     () => ({
+      page,
       search: search.trim() || undefined,
       ordering,
     }),
-    [ordering, search],
+    [page, ordering, search],
   );
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error, isFetching } = useQuery({
     queryKey: ["articles", queryParams],
     queryFn: () => getArticles(queryParams),
     placeholderData: keepPreviousData,
@@ -138,6 +143,13 @@ export function ArticlesPage() {
           ))}
         </div>
       )}
+      <PaginationControls
+        page={page}
+        next={data?.next}
+        previous={data?.previous}
+        pending={isFetching}
+        onPageChange={setPage}
+      />
     </section>
   );
 }

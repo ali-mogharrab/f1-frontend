@@ -1,3 +1,5 @@
+import { PaginationControls } from "../components/common/PaginationControls";
+import { useListPage } from "../hooks/useListPage";
 import {
   keepPreviousData,
   useMutation,
@@ -50,16 +52,19 @@ export function RacesPage() {
   const [status, setStatus] = useState("");
   const [ordering, setOrdering] = useState(raceSortOptions[0].value);
 
+  const [page, setPage] = useListPage(JSON.stringify([search, status, ordering]));
+
   const queryParams = useMemo(
     () => ({
+      page,
       search: search.trim() || undefined,
       status: status || undefined,
       ordering,
     }),
-    [ordering, search, status],
+    [page, ordering, search, status],
   );
 
-  const { data, isLoading, isError, error } = useQuery({
+  const { data, isLoading, isError, error, isFetching } = useQuery({
     queryKey: ["races", queryParams],
     queryFn: () => getRaces(queryParams),
     placeholderData: keepPreviousData,
@@ -237,6 +242,13 @@ export function RacesPage() {
           })}
         </div>
       )}
+      <PaginationControls
+        page={page}
+        next={data?.next}
+        previous={data?.previous}
+        pending={isFetching}
+        onPageChange={setPage}
+      />
     </section>
   );
 }

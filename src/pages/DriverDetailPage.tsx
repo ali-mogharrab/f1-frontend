@@ -1,3 +1,5 @@
+import { PaginationControls } from "../components/common/PaginationControls";
+import { useListPage } from "../hooks/useListPage";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router";
 import { getDriver, getRaceResults } from "../api/racingApi";
@@ -21,6 +23,7 @@ function formatDate(dateValue: string | null) {
 
 export function DriverDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const [standingsPage, setStandingsPage] = useListPage(id ?? "");
 
   const driverQuery = useQuery({
     queryKey: ["driver", id],
@@ -29,10 +32,11 @@ export function DriverDetailPage() {
   });
 
   const standingsQuery = useQuery({
-    queryKey: ["driver-standings", "driver", id],
+    queryKey: ["driver-standings", "driver", id, standingsPage],
     queryFn: () =>
       getDriverStandings({
         driver: id as string,
+        page: standingsPage,
         ordering: "-season__year,position",
       }),
     enabled: Boolean(id),
@@ -175,8 +179,20 @@ export function DriverDetailPage() {
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Championship standings
           </h2>
+          <PaginationControls
+            label="Championship standings pages"
+            page={standingsPage}
+            next={standingsQuery.data?.next}
+            previous={standingsQuery.data?.previous}
+            pending={standingsQuery.isFetching}
+            onPageChange={setStandingsPage}
+          />
 
-          {standings.length === 0 ? (
+          {standingsQuery.isLoading ? (
+            <LoadingMessage message="Loading championship standings..." />
+          ) : standingsQuery.isError ? (
+            <ErrorMessage title="Could not load championship standings" message="Please try again." />
+          ) : standings.length === 0 ? (
             <div className="mt-4">
               <EmptyState message="No championship standings found for this driver." />
             </div>

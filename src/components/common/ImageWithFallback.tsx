@@ -15,11 +15,11 @@ export function ImageWithFallback({
   className = "",
   fallbackLabel = "No image",
 }: ImageWithFallbackProps) {
-  const [hasError, setHasError] = useState(false);
+  const [failedUrl, setFailedUrl] = useState<string | null>(null);
 
   const imageUrl = getMediaUrl(src);
 
-  if (!imageUrl || hasError) {
+  if (!imageUrl || failedUrl === imageUrl) {
     return (
       <div
         className={`image-fallback flex flex-col items-center justify-center gap-3 text-sm font-semibold text-slate-500 dark:text-slate-300 ${className}`}
@@ -36,7 +36,7 @@ export function ImageWithFallback({
     <img
       src={imageUrl}
       alt={alt}
-      onError={() => setHasError(true)}
+      onError={() => setFailedUrl(imageUrl)}
       className={className}
     />
   );

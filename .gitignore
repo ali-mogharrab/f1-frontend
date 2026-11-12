@@ -7,9 +7,19 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
-node_modules
-dist
-dist-ssr
+node_modules/
+dist/
+dist-ssr/
+test-results/
+playwright-report/
+blob-report/
+playwright/.cache/
+coverage/
+.nyc_output/
+.cache/
+.vite/
+*.tsbuildinfo
+junit.xml
 *.local
 
 # Editor directories and files
@@ -22,7 +32,41 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+*~
+Thumbs.db
 
 .env
 .env.*
 !.env.example
+!.env.*.example
+!.env.sample
+!.env.template
+
+/dist.zip
+
+# Local Python tooling and databases
+.f1b/
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.py[cod]
+*.sqlite3
+*.sqlite3-*
+*.sqlite
+*.sqlite-*
+*.db
+*.db-*
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+.coverage.*
+htmlcov/
+
+# Local temporary files
+*.tmp
+*.temp
+*.bak
+/tmp/

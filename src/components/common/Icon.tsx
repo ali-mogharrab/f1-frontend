@@ -1,6 +1,10 @@
 import type { ReactNode, SVGProps } from "react";
 
 export type IconName =
+  | "analyst"
+  | "chat"
+  | "refresh"
+  | "plus"
   | "arrow-right"
   | "calendar"
   | "close"
@@ -24,6 +28,10 @@ type IconProps = SVGProps<SVGSVGElement> & {
 };
 
 const paths: Record<IconName, ReactNode> = {
+  plus: <path d="M12 5v14M5 12h14" />,
+  analyst: <><path d="M4 18V9m5 9V5m5 13v-7m5 7V3" /><path d="M3 21h18" /></>,
+  chat: <path d="M21 11a8 8 0 0 1-8 8H8l-5 3V11a9 9 0 0 1 18 0Z" />,
+  refresh: <><path d="M20 7v5h-5M4 17v-5h5" /><path d="M6 7a7 7 0 0 1 12-2l2 3M4 16l2 3a7 7 0 0 0 12-2" /></>,
   "arrow-right": <><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></>,
   calendar: <><path d="M7 3v3M17 3v3" /><rect x="3" y="5" width="18" height="16" rx="2" /><path d="M3 10h18" /></>,
   close: <><path d="m6 6 12 12M18 6 6 18" /></>,

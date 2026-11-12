@@ -12,6 +12,7 @@ const navLinks: { label: string; to: string; icon: IconName }[] = [
   { label: "Races", to: "/races", icon: "flag" },
   { label: "Standings", to: "/standings", icon: "trophy" },
   { label: "Articles", to: "/articles", icon: "newspaper" },
+  { label: "AI Analyst", to: "/ai-analyst", icon: "analyst" },
 ];
 
 function desktopLinkClass(isActive: boolean) {

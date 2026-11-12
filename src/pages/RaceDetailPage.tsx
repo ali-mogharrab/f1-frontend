@@ -1,3 +1,5 @@
+import { PaginationControls } from "../components/common/PaginationControls";
+import { useListPage } from "../hooks/useListPage";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router";
 import {
@@ -34,6 +36,9 @@ function formatTime(timeValue: string | null) {
 
 export function RaceDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const [sprintResultsPage, setSprintResultsPage] = useListPage(id ?? "");
+  const [qualifyingResultsPage, setQualifyingResultsPage] = useListPage(id ?? "");
+  const [raceResultsPage, setRaceResultsPage] = useListPage(id ?? "");
 
   const raceQuery = useQuery({
     queryKey: ["race", id],
@@ -50,30 +55,33 @@ export function RaceDetailPage() {
   });
 
   const raceResultsQuery = useQuery({
-    queryKey: ["race-results", "race", id],
+    queryKey: ["race-results", "race", id, raceResultsPage],
     queryFn: () =>
       getRaceResults({
         race: id as string,
+        page: raceResultsPage,
         ordering: "position",
       }),
     enabled: Boolean(id),
   });
 
   const qualifyingResultsQuery = useQuery({
-    queryKey: ["qualifying-results", "race", id],
+    queryKey: ["qualifying-results", "race", id, qualifyingResultsPage],
     queryFn: () =>
       getQualifyingResults({
         race: id as string,
+        page: qualifyingResultsPage,
         ordering: "position",
       }),
     enabled: Boolean(id),
   });
 
   const sprintResultsQuery = useQuery({
-    queryKey: ["sprint-results", "race", id],
+    queryKey: ["sprint-results", "race", id, sprintResultsPage],
     queryFn: () =>
       getSprintResults({
         race: id as string,
+        page: sprintResultsPage,
         ordering: "position",
       }),
     enabled: Boolean(id),
@@ -169,8 +177,20 @@ export function RaceDetailPage() {
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Race results
           </h2>
+          <PaginationControls
+            label="Race results pages"
+            page={raceResultsPage}
+            next={raceResultsQuery.data?.next}
+            previous={raceResultsQuery.data?.previous}
+            pending={raceResultsQuery.isFetching}
+            onPageChange={setRaceResultsPage}
+          />
 
-          {raceResults.length === 0 ? (
+          {raceResultsQuery.isLoading ? (
+            <LoadingMessage message="Loading race results..." />
+          ) : raceResultsQuery.isError ? (
+            <ErrorMessage title="Could not load race results" message="Please try again." />
+          ) : raceResults.length === 0 ? (
             <div className="mt-4">
               <EmptyState message="No race results found for this race." />
             </div>
@@ -291,8 +311,20 @@ export function RaceDetailPage() {
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Qualifying
           </h2>
+          <PaginationControls
+            label="Qualifying pages"
+            page={qualifyingResultsPage}
+            next={qualifyingResultsQuery.data?.next}
+            previous={qualifyingResultsQuery.data?.previous}
+            pending={qualifyingResultsQuery.isFetching}
+            onPageChange={setQualifyingResultsPage}
+          />
 
-          {qualifyingResults.length === 0 ? (
+          {qualifyingResultsQuery.isLoading ? (
+            <LoadingMessage message="Loading qualifying results..." />
+          ) : qualifyingResultsQuery.isError ? (
+            <ErrorMessage title="Could not load qualifying results" message="Please try again." />
+          ) : qualifyingResults.length === 0 ? (
             <div className="mt-4">
               <EmptyState message="No qualifying results found for this race." />
             </div>
@@ -355,8 +387,20 @@ export function RaceDetailPage() {
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Sprint
           </h2>
+          <PaginationControls
+            label="Sprint pages"
+            page={sprintResultsPage}
+            next={sprintResultsQuery.data?.next}
+            previous={sprintResultsQuery.data?.previous}
+            pending={sprintResultsQuery.isFetching}
+            onPageChange={setSprintResultsPage}
+          />
 
-          {sprintResults.length === 0 ? (
+          {sprintResultsQuery.isLoading ? (
+            <LoadingMessage message="Loading sprint results..." />
+          ) : sprintResultsQuery.isError ? (
+            <ErrorMessage title="Could not load sprint results" message="Please try again." />
+          ) : sprintResults.length === 0 ? (
             <div className="mt-4">
               <EmptyState message="No sprint results found for this race." />
             </div>

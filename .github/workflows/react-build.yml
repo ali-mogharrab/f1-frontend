@@ -29,12 +29,22 @@ jobs:
           cache: "npm"
 
       - name: Install dependencies
-        run: |
-          npm cache clean --force
-          npm install --no-audit --no-fund
+        run: npm ci --no-fund
+
+      - name: Audit runtime dependencies
+        run: npm audit --omit=dev --audit-level=high
 
       - name: Verify dependencies
         run: npm ls react-router
 
       - name: Build project
         run: npm run build
+
+      - name: Typecheck and lint
+        run: npm run typecheck && npm run lint
+
+      - name: Install test browser
+        run: npx playwright install --with-deps chromium
+
+      - name: Test analyst UI
+        run: npm test

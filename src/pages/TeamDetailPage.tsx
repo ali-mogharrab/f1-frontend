@@ -1,3 +1,5 @@
+import { PaginationControls } from "../components/common/PaginationControls";
+import { useListPage } from "../hooks/useListPage";
 import { useQuery } from "@tanstack/react-query";
 import { Link, useParams } from "react-router";
 import { getDrivers, getRaceResults, getTeam } from "../api/racingApi";
@@ -9,6 +11,8 @@ import { LoadingMessage } from "../components/common/LoadingMessage";
 
 export function TeamDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const [standingsPage, setStandingsPage] = useListPage(id ?? "");
+  const [driversPage, setDriversPage] = useListPage(id ?? "");
 
   const teamQuery = useQuery({
     queryKey: ["team", id],
@@ -17,20 +21,22 @@ export function TeamDetailPage() {
   });
 
   const driversQuery = useQuery({
-    queryKey: ["drivers", "team", id],
+    queryKey: ["drivers", "team", id, driversPage],
     queryFn: () =>
       getDrivers({
         current_team: id as string,
+        page: driversPage,
         ordering: "last_name,first_name",
       }),
     enabled: Boolean(id),
   });
 
   const standingsQuery = useQuery({
-    queryKey: ["constructor-standings", "team", id],
+    queryKey: ["constructor-standings", "team", id, standingsPage],
     queryFn: () =>
       getConstructorStandings({
         team: id as string,
+        page: standingsPage,
         ordering: "-season__year,position",
       }),
     enabled: Boolean(id),
@@ -198,8 +204,20 @@ export function TeamDetailPage() {
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Current drivers
           </h2>
+          <PaginationControls
+            label="Current drivers pages"
+            page={driversPage}
+            next={driversQuery.data?.next}
+            previous={driversQuery.data?.previous}
+            pending={driversQuery.isFetching}
+            onPageChange={setDriversPage}
+          />
 
-          {drivers.length === 0 ? (
+          {driversQuery.isLoading ? (
+            <LoadingMessage message="Loading current drivers..." />
+          ) : driversQuery.isError ? (
+            <ErrorMessage title="Could not load current drivers" message="Please try again." />
+          ) : drivers.length === 0 ? (
             <div className="mt-4">
               <EmptyState message="No current drivers found for this team." />
             </div>
@@ -232,8 +250,20 @@ export function TeamDetailPage() {
           <h2 className="text-xl font-bold text-slate-950 dark:text-white">
             Constructor seasons
           </h2>
+          <PaginationControls
+            label="Constructor seasons pages"
+            page={standingsPage}
+            next={standingsQuery.data?.next}
+            previous={standingsQuery.data?.previous}
+            pending={standingsQuery.isFetching}
+            onPageChange={setStandingsPage}
+          />
 
-          {standings.length === 0 ? (
+          {standingsQuery.isLoading ? (
+            <LoadingMessage message="Loading constructor seasons..." />
+          ) : standingsQuery.isError ? (
+            <ErrorMessage title="Could not load constructor seasons" message="Please try again." />
+          ) : standings.length === 0 ? (
             <div className="mt-4">
               <EmptyState message="No constructor standings found for this team." />
             </div>

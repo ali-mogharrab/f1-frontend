@@ -7,8 +7,7 @@ export function getMediaUrl(path: string | null | undefined) {
     return path;
   }
 
-  const apiBaseUrl = import.meta.env.VITE_API_BASE_URL;
-  const backendBaseUrl = apiBaseUrl.replace("/api", "");
-
-  return `${backendBaseUrl}${path}`;
+  const apiBaseUrl = new URL(import.meta.env.VITE_API_BASE_URL || "/api", window.location.origin);
+  const url = new URL(path, `${apiBaseUrl.origin}/`);
+  return ["http:", "https:"].includes(url.protocol) ? url.href : null;
 }

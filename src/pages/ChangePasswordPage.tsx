@@ -1,10 +1,14 @@
 import { useState, type FormEvent } from "react";
+import { useNavigate } from "react-router";
+import { useAuth } from "../context/AuthContext";
 import { changePassword } from "../api/authApi";
 import { ErrorMessage } from "../components/common/ErrorMessage";
 import { PageHeader } from "../components/common/PageHeader";
 import { getApiErrorMessage } from "../utils/apiError";
 
 export function ChangePasswordPage() {
+  const navigate = useNavigate();
+  const { logout } = useAuth();
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   const [newPasswordConfirm, setNewPasswordConfirm] = useState("");
@@ -36,6 +40,8 @@ export function ChangePasswordPage() {
       setOldPassword("");
       setNewPassword("");
       setNewPasswordConfirm("");
+      logout();
+      navigate("/login", { replace: true, state: { reason: "password-changed" } });
     } catch (error) {
       setErrorMessage(getApiErrorMessage(error));
     } finally {

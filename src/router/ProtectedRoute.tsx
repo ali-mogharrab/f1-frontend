@@ -1,8 +1,9 @@
-import { Navigate, Outlet } from "react-router";
+import { Navigate, Outlet, useLocation } from "react-router";
 import { LoadingMessage } from "../components/common/LoadingMessage";
 import { useAuth } from "../context/AuthContext";
 
 export function ProtectedRoute() {
+  const location = useLocation();
   const { isAuthenticated, isLoadingUser } = useAuth();
 
   if (isLoadingUser) {
@@ -10,7 +11,7 @@ export function ProtectedRoute() {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace />;
+    return <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />;
   }
 
   return <Outlet />;

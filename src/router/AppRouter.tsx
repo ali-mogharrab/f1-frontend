@@ -19,6 +19,7 @@ import { StandingsPage } from "../pages/StandingsPage";
 import { TeamDetailPage } from "../pages/TeamDetailPage";
 import { TeamsPage } from "../pages/TeamsPage";
 import { ProtectedRoute } from "./ProtectedRoute";
+import { AIAnalystPage } from "../pages/AIAnalystPage";
 
 export function AppRouter() {
   return (
@@ -44,6 +45,7 @@ export function AppRouter() {
           />
 
           <Route element={<ProtectedRoute />}>
+            <Route path="/ai-analyst" element={<AIAnalystPage />} />
             <Route path="/dashboard" element={<DashboardPage />} />
             <Route path="/profile" element={<ProfilePage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
